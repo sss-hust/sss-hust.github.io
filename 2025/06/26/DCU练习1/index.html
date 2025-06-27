@@ -4,19 +4,21 @@
   <meta charset="utf-8">
   
   
-  <title>毕设0 | 思君</title>
+  <title>DCU练习1 | 思君</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="毕业设计环境搭建服务端搭建 首先使用pycharm导入项目，根据书中所说进入”~\MusicRecSys\MusicRec\z-others\files“命令行输入pip install -r requirement.txt即可一键安装所需依赖版本 pycharm使用的为github认证后的免费版，中途出现学校邮箱被ban，只需在github上删除对应邮箱即可 接下来处理数据库，首先安装MySQL">
+  <meta name="description" content="DCU练习1熟悉利用DCU进行并行计算，DCU下编程主要分为以下几步：      在DCU上划分空间，将待处理数据集传送到DCU上（存在优化空间，当前了解的是简单复制） 设置线程数与线程块数，编写核函数，这一步是最重要的，函数逻辑决定了运行效率 将运行结果传送回主机，并保存  DCU练习2进一步熟悉DCU编程，进行线程间的合作，学习规约算法     以对二维数组的每一行进行softmax处理展开实">
 <meta property="og:type" content="article">
-<meta property="og:title" content="毕设0">
-<meta property="og:url" content="https://sss-hust.github.io/2025/04/16/%E6%AF%95%E8%AE%BE0/index.html">
+<meta property="og:title" content="DCU练习1">
+<meta property="og:url" content="https://sss-hust.github.io/2025/06/26/DCU%E7%BB%83%E4%B9%A01/index.html">
 <meta property="og:site_name" content="思君">
-<meta property="og:description" content="毕业设计环境搭建服务端搭建 首先使用pycharm导入项目，根据书中所说进入”~\MusicRecSys\MusicRec\z-others\files“命令行输入pip install -r requirement.txt即可一键安装所需依赖版本 pycharm使用的为github认证后的免费版，中途出现学校邮箱被ban，只需在github上删除对应邮箱即可 接下来处理数据库，首先安装MySQL">
+<meta property="og:description" content="DCU练习1熟悉利用DCU进行并行计算，DCU下编程主要分为以下几步：      在DCU上划分空间，将待处理数据集传送到DCU上（存在优化空间，当前了解的是简单复制） 设置线程数与线程块数，编写核函数，这一步是最重要的，函数逻辑决定了运行效率 将运行结果传送回主机，并保存  DCU练习2进一步熟悉DCU编程，进行线程间的合作，学习规约算法     以对二维数组的每一行进行softmax处理展开实">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-16T02:23:29.000Z">
-<meta property="article:modified_time" content="2025-04-17T07:27:56.428Z">
+<meta property="og:image" content="https://sss-hust.github.io/2025/06/26/DCU%E7%BB%83%E4%B9%A01/%E5%AE%9E%E9%AA%8C%E6%88%AA%E5%9B%BE1.png">
+<meta property="article:published_time" content="2025-06-26T02:51:39.000Z">
+<meta property="article:modified_time" content="2025-06-27T14:29:42.042Z">
 <meta property="article:author" content="杨慕怡">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sss-hust.github.io/2025/06/26/DCU%E7%BB%83%E4%B9%A01/%E5%AE%9E%E9%AA%8C%E6%88%AA%E5%9B%BE1.png">
   
     <link rel="alternate" href="/atom.xml" title="思君" type="application/atom+xml">
   
@@ -79,14 +81,14 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-毕设0" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-DCU练习1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/04/16/%E6%AF%95%E8%AE%BE0/" class="article-date">
-  <time class="dt-published" datetime="2025-04-16T02:23:29.000Z" itemprop="datePublished">2025-04-16</time>
+    <a href="/2025/06/26/DCU%E7%BB%83%E4%B9%A01/" class="article-date">
+  <time class="dt-published" datetime="2025-06-26T02:51:39.000Z" itemprop="datePublished">2025-06-26</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a>
+    <a class="article-category-link" href="/categories/AI%E5%9F%BA%E7%A1%80/">AI基础</a>
   </div>
 
   </div>
@@ -97,7 +99,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      毕设0
+      DCU练习1
     </h1>
   
 
@@ -105,30 +107,27 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="毕业设计环境搭建"><a href="#毕业设计环境搭建" class="headerlink" title="毕业设计环境搭建"></a>毕业设计环境搭建</h2><h3 id="服务端搭建"><a href="#服务端搭建" class="headerlink" title="服务端搭建"></a>服务端搭建</h3><ol>
-<li>首先使用pycharm导入项目，根据书中所说进入”~\MusicRecSys\MusicRec\z-others\files“命令行输入pip install -r requirement.txt即可一键安装所需依赖版本</li>
-<li>pycharm使用的为github认证后的免费版，中途出现学校邮箱被ban，只需在github上删除对应邮箱即可</li>
-<li>接下来处理数据库，首先安装MySQL，自定义安装，紧安装MySQL sever与MySQL Workbench，最后安装个Navicat for MySQL，直接将项目提供数据库导入，该软件使用为网络破解版</li>
-<li>参照<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44823756/article/details/117878130">推荐系统开发实战——项目代码的运行教程_《推荐系统开发实战》代码-CSDN博客</a>与书籍中提到的位置修改项目代码，将配置给为本地配置</li>
-<li>项目目录下输入下面指令，启动服务端<blockquote>
-<p>python manage.py runserver 127.0.0.1:8000</p>
-</blockquote>
-</li>
-</ol>
-<h3 id="前端搭建"><a href="#前端搭建" class="headerlink" title="前端搭建"></a>前端搭建</h3><ol>
-<li><p>环境在vscode下，npm与node以前都装好了，直接下载依赖项，将项目 中涉及到的IP都改为本地环回地址127.0.0.1</p>
-</li>
-<li><p>项目目录下输入下面指令即可启动前端</p>
-<blockquote>
-<p>npm run dev</p>
-</blockquote>
-</li>
-</ol>
+        <h1 id="DCU练习1"><a href="#DCU练习1" class="headerlink" title="DCU练习1"></a>DCU练习1</h1><p>熟悉利用DCU进行并行计算，DCU下编程主要分为以下几步：    </p>
+<ul>
+<li>在DCU上划分空间，将待处理数据集传送到DCU上（存在优化空间，当前了解的是简单复制）</li>
+<li>设置线程数与线程块数，编写核函数，这一步是最重要的，函数逻辑决定了运行效率</li>
+<li>将运行结果传送回主机，并保存<br><img src="/2025/06/26/DCU%E7%BB%83%E4%B9%A01/%E5%AE%9E%E9%AA%8C%E6%88%AA%E5%9B%BE1.png" alt="实验截图1"></li>
+</ul>
+<h1 id="DCU练习2"><a href="#DCU练习2" class="headerlink" title="DCU练习2"></a>DCU练习2</h1><p>进一步熟悉DCU编程，进行线程间的合作，学习规约算法    </p>
+<p>以对二维数组的每一行进行softmax处理展开实验，在CPU上串行实现、DCU上每一行一个线程、DCU上每一行多个线程。</p>
+<ul>
+<li>CPU串行实现：每一行找到最大值，减去后求和取指数。</li>
+<li>DCU每一行一个线程：设置线程块与行数相同，线程块内只有一个线程，其余过程与CPU串行实现一致。</li>
+<li>DCU每一行多个线程：设置线程块与行数相同，线程块内多个线程，每一个线程负责部分数据，采用与希尔排序类似的思路，找出部分数据中的最大值。再利用规约找整个数据中的最大值，即将整个数据集划分一半，前一半和后一半比较，较大值放到前者，这样处理完前一半后，缩小范围，将前一半划分两份，递归处理，最后最大值保存在线程0。在规约的时候涉及到线程之间数据比较，因此需要线程间的数据共享，每个线程块创建一个共享空间，每个线程有单独的内存空间，同一线程块内线程可以相互访问。最后的求和也按照前述思路。</li>
+</ul>
+<p>！<a href="%E5%AE%9E%E9%AA%8C%E6%88%AA%E5%9B%BE2.png">实验截图2</a></p>
+<p>编译器若不使用优化，则每一行一个线程代价比CPU中串行还要高，因为包括了传输数据等开销；开启O1优化CPU与DCU中运行速度大大提速，O2对于单线程仍有大大提高，对于多线程则基本无变化。</p>
+<p>DCU中的共享内存速度比用hipmalloc分配的全局内存更加快，同时生命周期也不一样。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://sss-hust.github.io/2025/04/16/%E6%AF%95%E8%AE%BE0/" data-id="cmcewsuns000et8y22f0rbsk9" data-title="毕设0" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://sss-hust.github.io/2025/06/26/DCU%E7%BB%83%E4%B9%A01/" data-id="cmcewsune0004t8y20wdffiqs" data-title="DCU练习1" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -138,19 +137,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2025/04/16/Anaconda/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          Anaconda
-        
-      </div>
-    </a>
   
-  
-    <a href="/2025/04/15/Hexo%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2025/06/16/%E6%AF%95%E4%B8%9A%E5%89%8D%E5%A4%951-0/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">Hexo使用</div>
+      <div class="article-nav-title">毕业前夕1.0</div>
     </a>
   
 </nav>
