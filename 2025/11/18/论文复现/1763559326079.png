@@ -1,0 +1,27 @@
+input_token: 16, output_token: 16, prefill_time: 3.3451021909713745, decode_time: 4.766997218132019, hit_rate: 0.5367943548387097,1.97token/s
+input_token: 16, output_token: 32, prefill_time: 2.624472498893738, decode_time: 9.139970684051514, hit_rate: 0.5306515957446807,2.72token/s
+input_token: 16, output_token: 64, prefill_time: 2.5198034763336183, decode_time: 18.140590739250182, hit_rate: 0.5211629746835442,3.10token/s
+input_token: 16, output_token: 128, prefill_time: 2.365281367301941, decode_time: 35.23254156112671, hit_rate: 0.5111888111888112,3.40token/s
+input_token: 16, output_token: 256, prefill_time: 2.2702624559402467, decode_time: 69.2951863527298, hit_rate: 0.5036669741697417,3.58token/s
+input_token: 16, output_token: 512, prefill_time: 2.3631996631622316, decode_time: 138.35246257781984, hit_rate: 0.493741105313093,3.64token/s
+
+input_token: 32, output_token: 16, prefill_time: 4.081485676765442, decode_time: 3.7928898096084596, hit_rate: 0.5310837765957446,2.03token/s
+input_token: 32, output_token: 32, prefill_time: 3.840633225440979, decode_time: 8.118493437767029, hit_rate: 0.5323908730158731,2.68token/s
+input_token: 32, output_token: 64, prefill_time: 3.9522921800613404, decode_time: 16.520104908943175, hit_rate: 0.525953947368421,3.13token/s
+input_token: 32, output_token: 128, prefill_time: 3.9544477224349976, decode_time: 33.710159397125246, hit_rate: 0.5192413522012578,3.40token/s
+input_token: 32, output_token: 256, prefill_time: 3.9257996320724486, decode_time: 64.03426005840302, hit_rate: 0.514606925087108,3.77token/s
+input_token: 32, output_token: 512, prefill_time: 4.222780346870422, decode_time: 131.93554611206054, hit_rate: 0.5125633057090241,3.76token/s
+
+input_token: 64, output_token: 16, prefill_time: 6.208089876174927, decode_time: 4.079589986801148, hit_rate: 0.5277492088607596,1.56token/s
+input_token: 64, output_token: 32, prefill_time: 6.333457016944886, decode_time: 8.359721374511718, hit_rate: 0.5267434210526315,2.18token/s
+input_token: 64, output_token: 64, prefill_time: 6.275162839889527, decode_time: 16.398582458496094, hit_rate: 0.5242741141732282,2.82token/s
+input_token: 64, output_token: 128, prefill_time: 6.180424523353577, decode_time: 31.80669233798981, hit_rate: 0.5220958769633507,3.37token/s
+input_token: 64, output_token: 256, prefill_time: 6.232331538200379, decode_time: 64.33064439296723, hit_rate: 0.515967868338558,3.63token/s
+input_token: 64, output_token: 512, prefill_time: 8.035298371315003, decode_time: 138.64070541858672, hit_rate: 0.5148260869565218,3.49token/s
+
+input_token: 128, output_token: 16, prefill_time: 7.447513890266419, decode_time: 4.455534052848816, hit_rate: 0.5176136363636364,1.34token/s
+input_token: 128, output_token: 32, prefill_time: 7.472442555427551, decode_time: 9.254993391036987, hit_rate: 0.5158805031446542,1.91token/s
+input_token: 128, output_token: 64, prefill_time: 7.87091031074524, decode_time: 18.100189566612244, hit_rate: 0.5141361256544503,2.46token/s
+input_token: 128, output_token: 128, prefill_time: 7.053445601463318, decode_time: 34.42800521850586, hit_rate: 0.5117953431372549,3.09token/s
+input_token: 128, output_token: 256, prefill_time: 7.040521168708802, decode_time: 66.80634338855744, hit_rate: 0.5100807767624022,3.47token/s
+input_token: 128, output_token: 512, prefill_time: 6.961017966270447, decode_time: 132.30080728530885, hit_rate: 0.5096757629107981,3.68token/s

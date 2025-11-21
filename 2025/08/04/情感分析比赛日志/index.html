@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>情感分析比赛日志 | 思君</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="最开始是通过datawhale了解到这个比赛，环境使用的是魔搭提供的免费GPU环境。在完成初期阶段后，平台驱动突然出问题了，显卡无法识别，只能用CPU跑，直接卡崩溃了。只能用另外的环境——阿里云给的免费额度。 但是又出现了github没法拉取得问题，想着用gitee转发下，结果lfs需要充钱才能用（太坑了），自己下载到本地又发现lfs控制得文件都是指针，无奈只能clone仓库了，这才把代码迁移过来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="情感分析比赛日志">
+<meta property="og:url" content="https://sss-hust.github.io/2025/08/04/%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%E6%AF%94%E8%B5%9B%E6%97%A5%E5%BF%97/index.html">
+<meta property="og:site_name" content="思君">
+<meta property="og:description" content="最开始是通过datawhale了解到这个比赛，环境使用的是魔搭提供的免费GPU环境。在完成初期阶段后，平台驱动突然出问题了，显卡无法识别，只能用CPU跑，直接卡崩溃了。只能用另外的环境——阿里云给的免费额度。 但是又出现了github没法拉取得问题，想着用gitee转发下，结果lfs需要充钱才能用（太坑了），自己下载到本地又发现lfs控制得文件都是指针，无奈只能clone仓库了，这才把代码迁移过来">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-04T06:09:52.000Z">
+<meta property="article:modified_time" content="2025-09-03T14:37:26.061Z">
+<meta property="article:author" content="杨慕怡">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="思君" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">思君</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">--君住长江尾，我在长江中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://sss-hust.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-情感分析比赛日志" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/08/04/%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%E6%AF%94%E8%B5%9B%E6%97%A5%E5%BF%97/" class="article-date">
+  <time class="dt-published" datetime="2025-08-04T06:09:52.000Z" itemprop="datePublished">2025-08-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      情感分析比赛日志
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>最开始是通过datawhale了解到这个比赛，环境使用的是魔搭提供的免费GPU环境。在完成初期阶段后，平台驱动突然出问题了，显卡无法识别，只能用CPU跑，直接卡崩溃了。只能用另外的环境——阿里云给的免费额度。</p>
+<p>但是又出现了github没法拉取得问题，想着用gitee转发下，结果lfs需要充钱才能用（太坑了），自己下载到本地又发现lfs控制得文件都是指针，无奈只能clone仓库了，这才把代码迁移过来。</p>
+<p>迁移过来，又遇到了依赖地狱，没有办法跑起来，只能新建虚拟环境，使用以下命令安装Anaconda（参考<a target="_blank" rel="noopener" href="https://geek-docs.com/python/python-ask-answer/625_python_install_anaconda_on_ubuntu_or_linux_via_command_line.html">Python 在Ubuntu（或Linux）上通过命令行安装Anaconda|极客教程</a>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 获取安装包</span><br><span class="line">wget https://repo.anaconda.com/archive/Anaconda3-2025.06-1-Linux-x86_64.sh</span><br><span class="line"># 运行安装脚本</span><br><span class="line">bash Anaconda3-2025.06-1-Linux-x86_64.sh</span><br><span class="line"># 一路回车、yes即可安装成功</span><br><span class="line"># 在.bashrc中添加环境依赖</span><br><span class="line"># 添加Anaconda到系统环境变量</span><br><span class="line">export PATH=&quot;/root/anaconda3/bin:$PATH&quot;</span><br><span class="line">source ~/.bashrc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>安装完后，发现ipynb没有办法切换内核，于是继续寻找教程（参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014264373/article/details/119390267">【最全指南】如何在 Jupyter Notebook 中切换&#x2F;使用 conda 虚拟环境？_多个conda环境 notebook用的哪个-CSDN博客</a>s）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">conda activate my-conda-env    # this is the environment for your project and code</span><br><span class="line">conda install ipykernel</span><br><span class="line">conda deactivate</span><br><span class="line"></span><br><span class="line">conda activate base      # could be also some other environment</span><br><span class="line">conda install nb_conda_kernels</span><br><span class="line">jupyter notebook</span><br><span class="line"></span><br><span class="line"># 上述方法不行时，采用单独命令</span><br><span class="line">python -m ipykernel install --user --name=your_env_name --display-name &quot;Python (your_env_name)&quot;</span><br></pre></td></tr></table></figure>
+
+<p>操作完毕后，即可切换啦，但是在命令行下载新的依赖后，似乎没法自动导入，需要重启内核，ipynb才可以识别到</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://sss-hust.github.io/2025/08/04/%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%E6%AF%94%E8%B5%9B%E6%97%A5%E5%BF%97/" data-id="cmi8nhe34000tecy2ap207fie" data-title="情感分析比赛日志" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/08/05/git%E4%BD%BF%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          git使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/07/29/AI%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">AI学习第一天</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/AI%E5%9F%BA%E7%A1%80/">AI基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MoE/">MoE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vibe-coding/">vibe-coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B4%E8%B6%A3/">兴趣</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/11/21/%E6%9D%82%E8%AE%B0/">杂记</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/20/vibe-coding/">vibe coding</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/28/expert-offload/">expert_offload</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/">MC-Moe复现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 杨慕怡<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

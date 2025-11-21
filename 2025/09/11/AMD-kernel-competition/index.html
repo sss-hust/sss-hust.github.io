@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>AMD_kernel_competition | 思君</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="通过数据鲸（datawhale）知道这个比赛，看到丰厚的奖金以及与当前所研究的AI Infra方向有重合，打着学习的念头前往参赛。 报名在魔搭平台，唯一的难点在于注册discord，由于是国外主办，中国协助组织，在文档方面略有些混乱，刚开始接触的时候，完全不知道要做什么，只能先从官方提供的库开始看。当然，库也看不懂，只能请教AI了——看完发现做的事情很简单，官方提供了八张MI100的卡，我们需要做">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AMD_kernel_competition">
+<meta property="og:url" content="https://sss-hust.github.io/2025/09/11/AMD-kernel-competition/index.html">
+<meta property="og:site_name" content="思君">
+<meta property="og:description" content="通过数据鲸（datawhale）知道这个比赛，看到丰厚的奖金以及与当前所研究的AI Infra方向有重合，打着学习的念头前往参赛。 报名在魔搭平台，唯一的难点在于注册discord，由于是国外主办，中国协助组织，在文档方面略有些混乱，刚开始接触的时候，完全不知道要做什么，只能先从官方提供的库开始看。当然，库也看不懂，只能请教AI了——看完发现做的事情很简单，官方提供了八张MI100的卡，我们需要做">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/11/AMD-kernel-competition/1757577437385.png">
+<meta property="article:published_time" content="2025-09-11T01:55:07.000Z">
+<meta property="article:modified_time" content="2025-11-20T13:25:51.535Z">
+<meta property="article:author" content="杨慕怡">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sss-hust.github.io/2025/09/11/AMD-kernel-competition/1757577437385.png">
+  
+    <link rel="alternate" href="/atom.xml" title="思君" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">思君</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">--君住长江尾，我在长江中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://sss-hust.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-AMD-kernel-competition" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/11/AMD-kernel-competition/" class="article-date">
+  <time class="dt-published" datetime="2025-09-11T01:55:07.000Z" itemprop="datePublished">2025-09-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      AMD_kernel_competition
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>通过数据鲸（datawhale）知道这个比赛，看到丰厚的奖金以及与当前所研究的AI Infra方向有重合，打着学习的念头前往参赛。</p>
+<p>报名在魔搭平台，唯一的难点在于注册discord，由于是国外主办，中国协助组织，在文档方面略有些混乱，刚开始接触的时候，完全不知道要做什么，只能先从官方提供的库开始看。当然，库也看不懂，只能请教AI了——看完发现做的事情很简单，官方提供了八张MI100的卡，我们需要做的是优化卡之间的全对全通信，其是承载在这么一个背景上的——专家并行，每张卡有部分token，需要发给在其它卡上的专家进行处理（路由机制简化了，直接给出了token要去往哪里），同时计算也只是简单的乘法，最终评测程序会运行我们写的all_to_all，完成数据的dispatch和combine，与官方计算出来的数据进行比对，在一定误差范围内的话进入time比拼。</p>
+<p>看代码，baseline的dispatch首先在各个卡上利用循环知道要往各个卡上发多少信息，然后进行一次通信，告诉其它卡做好准备接受多少数据，以安排存储，接着再把要发送的实际数据和数据的一些信息通过两次发送传递给其它卡。主要时间消耗在于本地循环是串行，时间开销大，此外三次通信带来的时间开销也不小，以及安排存储空间和token排序的时间；combine则是用循环查看当前卡上专家处理过的token属于哪个卡，统计好要发多少到其它卡上，调用通信同步，接下来和dispatch差不多。</p>
+<p>整理下来，优化baseline有这几个方向，数据准备的加速，利用上显卡的并行特性，通信的减少，先不优化通信的具体实现。</p>
+<p>用AI写了一版优化的代码，其优化点就在于把之前的循环用已经封装好的张量操作，提高并行性，结果如下</p>
+<p><img src="/2025/09/11/AMD-kernel-competition/1757577437385.png" alt="1757577437385"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://sss-hust.github.io/2025/09/11/AMD-kernel-competition/" data-id="cmi8nhe2n0001ecy2cqq4clgn" data-title="AMD_kernel_competition" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          博弈论
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/08/27/svg%E7%94%9F%E6%88%90%E6%AF%94%E8%B5%9B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">svg生成比赛</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/AI%E5%9F%BA%E7%A1%80/">AI基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MoE/">MoE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vibe-coding/">vibe-coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B4%E8%B6%A3/">兴趣</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/11/21/%E6%9D%82%E8%AE%B0/">杂记</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/20/vibe-coding/">vibe coding</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/28/expert-offload/">expert_offload</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/">MC-Moe复现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 杨慕怡<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

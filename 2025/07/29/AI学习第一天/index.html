@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>AI学习第一天 | 思君</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="现在AI发展的太快了，原本以为CV只能解决图像识别、分割等任务，没想到还可以用来生成2D，3D图像；音频处理就更是强大了，自动配音，自动将音频与视频对齐，行业壁垒要被冲烂了。 AI领域相当重要的嵌入（embedding），目的是让机器可以看懂人类语言，最初想法是每一个词就是一个数字，但这样一会导致数字无比巨大，二会导致语义间的联系不大（语义割裂），例如a和an距离就会比a和abandon更大，但这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI学习第一天">
+<meta property="og:url" content="https://sss-hust.github.io/2025/07/29/AI%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/index.html">
+<meta property="og:site_name" content="思君">
+<meta property="og:description" content="现在AI发展的太快了，原本以为CV只能解决图像识别、分割等任务，没想到还可以用来生成2D，3D图像；音频处理就更是强大了，自动配音，自动将音频与视频对齐，行业壁垒要被冲烂了。 AI领域相当重要的嵌入（embedding），目的是让机器可以看懂人类语言，最初想法是每一个词就是一个数字，但这样一会导致数字无比巨大，二会导致语义间的联系不大（语义割裂），例如a和an距离就会比a和abandon更大，但这">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sss-hust.github.io/2025/07/29/AI%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/1755418619305.png">
+<meta property="article:published_time" content="2025-07-29T07:19:42.000Z">
+<meta property="article:modified_time" content="2025-11-20T13:25:42.032Z">
+<meta property="article:author" content="杨慕怡">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sss-hust.github.io/2025/07/29/AI%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/1755418619305.png">
+  
+    <link rel="alternate" href="/atom.xml" title="思君" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">思君</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">--君住长江尾，我在长江中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://sss-hust.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-AI学习第一天" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/07/29/AI%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/" class="article-date">
+  <time class="dt-published" datetime="2025-07-29T07:19:42.000Z" itemprop="datePublished">2025-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AI/">AI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      AI学习第一天
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>现在AI发展的太快了，原本以为CV只能解决图像识别、分割等任务，没想到还可以用来生成2D，3D图像；音频处理就更是强大了，自动配音，自动将音频与视频对齐，行业壁垒要被冲烂了。</p>
+<p>AI领域相当重要的嵌入（embedding），目的是让机器可以看懂人类语言，最初想法是每一个词就是一个数字，但这样一会导致数字无比巨大，二会导致语义间的联系不大（语义割裂），例如a和an距离就会比a和abandon更大，但这些都还不能解释为什么数字要和词具有关联。</p>
+<p>根据<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/7kPxUj2TN2pF9sV06Pd13Q">没有思考过Embedding，不足以谈AI</a>所说，</p>
+<ul>
+<li>让AI更好理解句子语义，即通过词的相近语义，让整个句子在空间里表现出形状。</li>
+<li>让模型结构设计更加自由——将文本变为”模糊“的概率列，再通过映射成文字，这样就让模型发挥空间更大了。</li>
+</ul>
+<blockquote>
+<p>因为词是离散分布的，而计算模型的输出 —— 除非只使用非常简单的运算并且约束参数的权重 —— 很难恰好落在定义好的量化值中。</p>
+</blockquote>
+<p>在我的理解中，AI还处于模仿人类思维，因此其知识空间应该也与人类相似，文本向量可以理解为情感空间，每个词在情感空间都有一个对应的点，全部维度可以唯一确定一个文字。自然，情感也包含里语义。</p>
+<p>transformer架构看起来很简洁，一个编码器一个解码器，编码器是解析文字输入，解码器把已生成的输出变回向量，编码器就是简单的注意力层加全连接层；解码器首先用多头注意力层，加上注意力层和全连接层，每层连接都加上了残差连接，且第二个注意力层加上了掩码机制</p>
+<p><img src="/2025/07/29/AI%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/1755418619305.png" alt="1755418619305"></p>
+<p>Key、Value、Query，是注意力层从左到右的三个输出，在自然语言处理中，key和value是同一个，query表示当前输入向量，通过query和key进行操作，得到加权系数，再用加权系数把value聚合得到最终的注意力分数</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://sss-hust.github.io/2025/07/29/AI%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/" data-id="cmi8nhe2i0000ecy2ddy64uum" data-title="AI学习第一天" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/08/04/%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%E6%AF%94%E8%B5%9B%E6%97%A5%E5%BF%97/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          情感分析比赛日志
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/07/15/%E5%BF%83%E5%BE%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">心得</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/AI%E5%9F%BA%E7%A1%80/">AI基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MoE/">MoE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vibe-coding/">vibe-coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B4%E8%B6%A3/">兴趣</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/11/21/%E6%9D%82%E8%AE%B0/">杂记</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/20/vibe-coding/">vibe coding</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/28/expert-offload/">expert_offload</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/">MC-Moe复现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 杨慕怡<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

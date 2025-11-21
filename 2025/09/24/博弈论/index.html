@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>博弈论 | 思君</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="博弈论是决策的游戏，决策过程中需要考虑什么，怎么比别人领先半步。   I表示参与者，S表示某参与者的纯策略集合；s表示纯策略；u表示收益；$s_{-i}$表示除参与者i外的参与者决策，其余同理  囚徒困境讲每个人都想要最好，让自己怎么都不亏，导致最终选择对全部选择者来说不完美，但通常一般人只能想到第一层，我们多想几层就有优势。 纳什均衡——没有全局最优，但是有局部最优，在矩阵中就是行和列最优。在加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="博弈论">
+<meta property="og:url" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/index.html">
+<meta property="og:site_name" content="思君">
+<meta property="og:description" content="博弈论是决策的游戏，决策过程中需要考虑什么，怎么比别人领先半步。   I表示参与者，S表示某参与者的纯策略集合；s表示纯策略；u表示收益；$s_{-i}$表示除参与者i外的参与者决策，其余同理  囚徒困境讲每个人都想要最好，让自己怎么都不亏，导致最终选择对全部选择者来说不完美，但通常一般人只能想到第一层，我们多想几层就有优势。 纳什均衡——没有全局最优，但是有局部最优，在矩阵中就是行和列最优。在加">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758704383404.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762388881005.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758712853382.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758713007787.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758713018795.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758713030617.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758713046225.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758713056185.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762407159307.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762407757460.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762415869939.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762415893591.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762415919626.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762415903695.png">
+<meta property="og:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762761288102.png">
+<meta property="article:published_time" content="2025-09-24T00:40:20.000Z">
+<meta property="article:modified_time" content="2025-11-20T13:23:36.373Z">
+<meta property="article:author" content="杨慕怡">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758704383404.png">
+  
+    <link rel="alternate" href="/atom.xml" title="思君" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">思君</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">--君住长江尾，我在长江中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://sss-hust.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-博弈论" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/" class="article-date">
+  <time class="dt-published" datetime="2025-09-24T00:40:20.000Z" itemprop="datePublished">2025-09-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%85%B4%E8%B6%A3/">兴趣</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      博弈论
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>博弈论是决策的游戏，决策过程中需要考虑什么，怎么比别人领先半步。</p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758704383404.png" alt="1758704383404"></p>
+<ul>
+<li>I表示参与者，S表示某参与者的纯策略集合；s表示纯策略；u表示收益；$s_{-i}$表示除参与者<em>i</em>外的参与者决策，其余同理</li>
+</ul>
+<p>囚徒困境讲每个人都想要最好，让自己怎么都不亏，导致最终选择对全部选择者来说不完美，但通常一般人只能想到第一层，我们多想几层就有优势。</p>
+<p>纳什均衡——没有全局最优，但是有局部最优，在矩阵中就是行和列最优。在加入混合策略后，参与者以概率选择某个纯策略，现在需要决策的就是让我们收益最大的概率。由定义以及推论，先找纳什均衡点，再根据收益一致，计算概率。</p>
+<p>纳什均衡有三个概念：占优策略的纳什均衡、重复剔除的纳什均衡、纳什均衡，范围从大到小，由前面的唯一性，可以倒推后面的唯一性，但不能从后面的唯一性倒推前面的唯一性。</p>
+<p>重复剔除只需要每次把严格劣策略剔除，找纳什均衡用画线法，找每个人的最佳反应策略，有重合的就是纳什均衡策略组。</p>
+<p>纳什均衡的定义中很好的表现了单方向偏离，对每个人来说，其余人都是最优决策。，在这种情况下，我的偏离并无动机，因为收益不会增大，但随着其余人的最优策略改变，我的最优决策也会随之改变</p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762388881005.png" alt="1762388881005"></p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758712853382.png" alt="1758712853382"></p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758713007787.png" alt="1758713007787"></p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758713018795.png" alt="1758713018795"></p>
+<p>由于概率的存在，纯策略的收益也会是加权求和得出的，因此可以把混合策略与纯策略进行比较，先证明必要性，如果存在纯策略的收益大于混合策略，那么就可以让该策略概率为1，其余策略概率为0，得到新的混合策略；充分性：任何混合策略都将会是纯策略的加权求和，因此混合策略的收益一定会比最大纯策略的收益更低，由条件可得纳什均衡下的混合策略会比任何混合策略更优</p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758713030617.png" alt="1758713030617"></p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758713046225.png" alt="1758713046225"></p>
+<p>根据这个推论，可以得出混合纳什均衡行动</p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1758713056185.png" alt="1758713056185"></p>
+<p>几乎所有博弈都存在奇数个纳什均衡（纯策略与混合策略）</p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762407159307.png" alt="1762407159307"></p>
+<p>紧致指的是有界闭区间，即闭区间必存在最大值</p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762407757460.png" alt="1762407757460"></p>
+<ul>
+<li>看不懂，太难了</li>
+</ul>
+<p>古诺模型考虑产量，公司与公司之间是对称的；伯川德模型考虑价格，当质量无明显差异时，卷价格最终导致谁都没法赚到钱。</p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762415869939.png" alt="1762415869939"></p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762415893591.png" alt="1762415893591"></p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762415919626.png" alt="1762415919626"></p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762415903695.png" alt="1762415903695"></p>
+<p><img src="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/1762761288102.png" alt="1762761288102"></p>
+<p>海萨尼转换，将不完全信息转化为完全但不完美信息，从而可以画出决策树，原理是引入自然选择，代替决策人不知道的类型</p>
+<p>梅耶森说，只要让大家诚实说话，就没必要设计很复杂的机制就可以达到最大期望效用，共识是基准！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://sss-hust.github.io/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/" data-id="cmi8nhe30000oecy2djhtcxtt" data-title="博弈论" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/10/07/%E6%89%8B%E6%92%95MoE%E4%BB%A3%E7%A0%81/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          手撕MoE代码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/09/11/AMD-kernel-competition/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">AMD_kernel_competition</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/AI%E5%9F%BA%E7%A1%80/">AI基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MoE/">MoE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vibe-coding/">vibe-coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B4%E8%B6%A3/">兴趣</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/11/21/%E6%9D%82%E8%AE%B0/">杂记</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/20/vibe-coding/">vibe coding</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/28/expert-offload/">expert_offload</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/">MC-Moe复现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 杨慕怡<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -6,17 +6,17 @@
   
   <title>DCU练习1 | 思君</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="DCU练习1熟悉利用DCU进行并行计算，DCU下编程主要分为以下几步：      在DCU上划分空间，将待处理数据集传送到DCU上（存在优化空间，当前了解的是简单复制） 设置线程数与线程块数，编写核函数，这一步是最重要的，函数逻辑决定了运行效率 将运行结果传送回主机，并保存   DCU练习2进一步熟悉DCU编程，进行线程间的合作，学习规约算法     以对二维数组的每一行进行softmax处理展开">
+  <meta name="description" content="DCU练习1熟悉利用DCU进行并行计算，DCU下编程主要分为以下几步：  在DCU上划分空间，将待处理数据集传送到DCU上（存在优化空间，当前了解的是简单复制） 设置线程数与线程块数，编写核函数，这一步是最重要的，函数逻辑决定了运行效率 将运行结果传送回主机，并保存   DCU练习2进一步熟悉DCU编程，进行线程间的合作，学习规约算法 以对二维数组的每一行进行softmax处理展开实验，在CPU上">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DCU练习1">
 <meta property="og:url" content="https://sss-hust.github.io/2025/06/26/DCU%E7%BB%83%E4%B9%A01/index.html">
 <meta property="og:site_name" content="思君">
-<meta property="og:description" content="DCU练习1熟悉利用DCU进行并行计算，DCU下编程主要分为以下几步：      在DCU上划分空间，将待处理数据集传送到DCU上（存在优化空间，当前了解的是简单复制） 设置线程数与线程块数，编写核函数，这一步是最重要的，函数逻辑决定了运行效率 将运行结果传送回主机，并保存   DCU练习2进一步熟悉DCU编程，进行线程间的合作，学习规约算法     以对二维数组的每一行进行softmax处理展开">
+<meta property="og:description" content="DCU练习1熟悉利用DCU进行并行计算，DCU下编程主要分为以下几步：  在DCU上划分空间，将待处理数据集传送到DCU上（存在优化空间，当前了解的是简单复制） 设置线程数与线程块数，编写核函数，这一步是最重要的，函数逻辑决定了运行效率 将运行结果传送回主机，并保存   DCU练习2进一步熟悉DCU编程，进行线程间的合作，学习规约算法 以对二维数组的每一行进行softmax处理展开实验，在CPU上">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sss-hust.github.io/2025/06/26/DCU%E7%BB%83%E4%B9%A01/%E5%AE%9E%E9%AA%8C%E6%88%AA%E5%9B%BE1.png">
 <meta property="og:image" content="https://sss-hust.github.io/2025/06/26/DCU%E7%BB%83%E4%B9%A01/%E5%AE%9E%E9%AA%8C%E6%88%AA%E5%9B%BE2.png">
 <meta property="article:published_time" content="2025-06-26T02:51:39.000Z">
-<meta property="article:modified_time" content="2025-06-27T14:33:01.361Z">
+<meta property="article:modified_time" content="2025-09-14T13:31:25.526Z">
 <meta property="article:author" content="杨慕怡">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://sss-hust.github.io/2025/06/26/DCU%E7%BB%83%E4%B9%A01/%E5%AE%9E%E9%AA%8C%E6%88%AA%E5%9B%BE1.png">
@@ -108,14 +108,14 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="DCU练习1"><a href="#DCU练习1" class="headerlink" title="DCU练习1"></a>DCU练习1</h1><p>熟悉利用DCU进行并行计算，DCU下编程主要分为以下几步：    </p>
+        <h1 id="DCU练习1"><a href="#DCU练习1" class="headerlink" title="DCU练习1"></a>DCU练习1</h1><p>熟悉利用DCU进行并行计算，DCU下编程主要分为以下几步：</p>
 <ul>
 <li>在DCU上划分空间，将待处理数据集传送到DCU上（存在优化空间，当前了解的是简单复制）</li>
 <li>设置线程数与线程块数，编写核函数，这一步是最重要的，函数逻辑决定了运行效率</li>
 <li>将运行结果传送回主机，并保存</li>
 </ul>
 <p><img src="/2025/06/26/DCU%E7%BB%83%E4%B9%A01/%E5%AE%9E%E9%AA%8C%E6%88%AA%E5%9B%BE1.png" alt="实验截图1"></p>
-<h1 id="DCU练习2"><a href="#DCU练习2" class="headerlink" title="DCU练习2"></a>DCU练习2</h1><p>进一步熟悉DCU编程，进行线程间的合作，学习规约算法    </p>
+<h1 id="DCU练习2"><a href="#DCU练习2" class="headerlink" title="DCU练习2"></a>DCU练习2</h1><p>进一步熟悉DCU编程，进行线程间的合作，学习规约算法</p>
 <p>以对二维数组的每一行进行softmax处理展开实验，在CPU上串行实现、DCU上每一行一个线程、DCU上每一行多个线程。</p>
 <ul>
 <li>CPU串行实现：每一行找到最大值，减去后求和取指数。</li>
@@ -125,11 +125,13 @@
 <p><img src="/2025/06/26/DCU%E7%BB%83%E4%B9%A01/%E5%AE%9E%E9%AA%8C%E6%88%AA%E5%9B%BE2.png" alt="实验截图2"></p>
 <p>编译器若不使用优化，则每一行一个线程代价比CPU中串行还要高，因为包括了传输数据等开销；开启O1优化CPU与DCU中运行速度大大提速，O2对于单线程仍有大大提高，对于多线程则基本无变化。</p>
 <p>DCU中的共享内存速度比用hipmalloc分配的全局内存更加快，同时生命周期也不一样。</p>
+<p>module list</p>
+<p>module switch ~ ~</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://sss-hust.github.io/2025/06/26/DCU%E7%BB%83%E4%B9%A01/" data-id="cmcewsune0004t8y20wdffiqs" data-title="DCU练习1" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://sss-hust.github.io/2025/06/26/DCU%E7%BB%83%E4%B9%A01/" data-id="cmi8nhe2r0004ecy20riz26q9" data-title="DCU练习1" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -168,7 +170,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI%E5%9F%BA%E7%A1%80/">AI基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/AI%E5%9F%BA%E7%A1%80/">AI基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MoE/">MoE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vibe-coding/">vibe-coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B4%E8%B6%A3/">兴趣</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul>
     </div>
   </div>
 
@@ -183,7 +185,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
     </div>
   </div>
 
@@ -196,23 +198,23 @@
       <ul>
         
           <li>
-            <a href="/2025/07/13/%E5%95%86%E5%93%81%E8%AF%86%E5%88%AB%E4%BC%98%E5%8C%96/">商品识别优化</a>
+            <a href="/2025/11/21/%E6%9D%82%E8%AE%B0/">杂记</a>
           </li>
         
           <li>
-            <a href="/2025/07/08/%E7%AE%97%E6%B3%95%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83/">算法第二单元</a>
+            <a href="/2025/11/20/vibe-coding/">vibe coding</a>
           </li>
         
           <li>
-            <a href="/2025/07/02/%E7%AE%97%E6%B3%95%E7%AC%AC%E4%B8%80%E7%AB%A0/">算法第一单元</a>
+            <a href="/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a>
           </li>
         
           <li>
-            <a href="/2025/06/26/DCU%E7%BB%83%E4%B9%A01/">DCU练习1</a>
+            <a href="/2025/10/28/expert-offload/">expert_offload</a>
           </li>
         
           <li>
-            <a href="/2025/06/16/%E6%AF%95%E4%B8%9A%E5%89%8D%E5%A4%951-0/">毕业前夕1.0</a>
+            <a href="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/">MC-Moe复现</a>
           </li>
         
       </ul>
