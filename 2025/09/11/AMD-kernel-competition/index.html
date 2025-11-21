@@ -112,12 +112,12 @@
 <p>看代码，baseline的dispatch首先在各个卡上利用循环知道要往各个卡上发多少信息，然后进行一次通信，告诉其它卡做好准备接受多少数据，以安排存储，接着再把要发送的实际数据和数据的一些信息通过两次发送传递给其它卡。主要时间消耗在于本地循环是串行，时间开销大，此外三次通信带来的时间开销也不小，以及安排存储空间和token排序的时间；combine则是用循环查看当前卡上专家处理过的token属于哪个卡，统计好要发多少到其它卡上，调用通信同步，接下来和dispatch差不多。</p>
 <p>整理下来，优化baseline有这几个方向，数据准备的加速，利用上显卡的并行特性，通信的减少，先不优化通信的具体实现。</p>
 <p>用AI写了一版优化的代码，其优化点就在于把之前的循环用已经封装好的张量操作，提高并行性，结果如下</p>
-<p><img src="/2025/09/11/AMD-kernel-competition/1757577437385.png" alt="1757577437385"></p>
+<p><img src="1757577437385.png" alt="1757577437385"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://sss-hust.github.io/2025/09/11/AMD-kernel-competition/" data-id="cmi8nhe2n0001ecy2cqq4clgn" data-title="AMD_kernel_competition" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://sss-hust.github.io/2025/09/11/AMD-kernel-competition/" data-id="cmi8njn2w0003awy290yiha9o" data-title="AMD_kernel_competition" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       

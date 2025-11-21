@@ -121,24 +121,25 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>根据论文代码库中的readme，快速开始，但是一开始就遇到了问题，requirement中多了一个无需下载的pickle库（python自带），少了texttable和datasets，真不细心。</p>
-<p>接着在读取huggingface的模型时又出现问题，明明文件中有safetensors文件，但是却报错识别不到,非常难受。于是转用clone到本地的办法，但由于没有root权限，git-lfs下载也颇为曲折，具体参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/694275513">(48 封私信 &#x2F; 6 条消息) Linux非root用户成功安装git-lfs - 知乎</a>。这样终于可以开始clone，但是问题又来了，hf源站由于网络没法直接在服务器访问，镜像站hf.mirror又有速率限制（后来发现是需要授权的模型，加上官方的token后就可以正常访问），难受的一匹，使用国内魔搭平台又非常慢，最终兜兜转转回到了官方提供的cli工具上，利用其下载模型，会在本地生成一个快照，这样就可以顺利使用python导入模型了，虽然还是很慢，但起码有能看到的进度条。</p>
-<p>最终还是没有用上述方法，同门此前下载好了Mixtral 8*7b模型，直接调用即可。运行所给脚本，发现其中有个缓存文件（MC-MoE&#x2F;datautils.py）用的是绝对目录，由于没有root权限，无法在&#x2F;mnt中写入，需要将其修改成项目相对路径。接着由于transformer版本不一致，当前main函数中调用layer函数缺少必要参数位置编码信息，在main函数的forwrad中添加对该部分的cache即可。至此，整个代码终于顺利跑起来了。</p>
+<p>接着在读取huggingface的模型时又出现问题，明明文件中有safetensors文件，但是却报错识别不到,非常难受。于是转用clone到本地的办法，但由于没有root权限，git-lfs下载也颇为曲折，具体参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/694275513">(48 封私信 / 6 条消息) Linux非root用户成功安装git-lfs - 知乎</a>。这样终于可以开始clone，但是问题又来了，hf源站由于网络没法直接在服务器访问，镜像站hf.mirror又有速率限制（后来发现是需要授权的模型，加上官方的token后就可以正常访问），难受的一匹，使用国内魔搭平台又非常慢，最终兜兜转转回到了官方提供的cli工具上，利用其下载模型，会在本地生成一个快照，这样就可以顺利使用python导入模型了，虽然还是很慢，但起码有能看到的进度条。</p>
+<p>最终还是没有用上述方法，同门此前下载好了Mixtral 8*7b模型，直接调用即可。运行所给脚本，发现其中有个缓存文件（MC-MoE/datautils.py）用的是绝对目录，由于没有root权限，无法在/mnt中写入，需要将其修改成项目相对路径。接着由于transformer版本不一致，当前main函数中调用layer函数缺少必要参数位置编码信息，在main函数的forwrad中添加对该部分的cache即可。至此，整个代码终于顺利跑起来了。</p>
 <p>采用的是每层专家量化后总宽度为20bit，但一个半小时后。。。。。告诉我运行测试文件时出现问题！还是缺少位置编码信息，保存模型的逻辑在测试之后，意味着有需要重新跑一个半小时！</p>
-<p><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1760669548661.png" alt="1760669548661"></p>
+<p><img src="1760669548661.png" alt="1760669548661"></p>
 <p>量化完的模型结构，有了量化模型，想着跑跑先导杯的数据集，看看困惑度和延迟怎么样，但是问题又接踵而至，基本都是关于position_embedding的问题,这里改改那里改改，终于出现了新的问题，本地实现的某个函数和标准transformer中的实现相比参数过多，又是debug，经历反复多参数和少参数，终于解决了，然后出现类型不对，哎，终究还是因为看不懂代码，不懂得程序是如何运行起来的，导致问题也看不太懂，非常痛苦。</p>
-<p>最后磕磕碰碰跑出了下面的结果，一连串非常奇怪呀，估计是量化加剪枝太狠了。同时先导杯数据集上延迟较大，比基线翻了四倍多<br><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1760706964474.png" alt="1760706964474"></p>
-<p><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1760707156115.png" alt="1760707156115"></p>
-<p><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1760707112994.png" alt="1760707112994"></p>
-<p><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1760707376736.png" alt="1760707376736"></p>
+<p>最后磕磕碰碰跑出了下面的结果，一连串非常奇怪呀，估计是量化加剪枝太狠了。同时先导杯数据集上延迟较大，比基线翻了四倍多<br>
+<img src="1760706964474.png" alt="1760706964474"></p>
+<p><img src="1760707156115.png" alt="1760707156115"></p>
+<p><img src="1760707112994.png" alt="1760707112994"></p>
+<p><img src="1760707376736.png" alt="1760707376736"></p>
 <p>不使用剪枝时，正常问答获得正常输出，但是先导杯数据集上没什么变化。</p>
 <p>最终量化测试结果如图，上面为测试结果，下面为论文结果</p>
-<p><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1760837747591.png" alt="1760837747591"></p>
-<p><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1760837835613.png" alt="1760837835613"></p>
-<p><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1760925670050.png" alt="1760925670050"></p>
+<p><img src="1760837747591.png" alt="1760837747591"></p>
+<p><img src="1760837835613.png" alt="1760837835613"></p>
+<p><img src="1760925670050.png" alt="1760925670050"></p>
 <p>在发现剪枝后跑数据的结果和仅仅量化是一模一样的时候，意识到不对劲了，赶紧回去看剪枝的代码，往里面一剖析，发现原本定义好的一个类被改没了，所以剪枝是没有效果的。</p>
-<p>但是前面是为了适应参数要求，才把代码改成这样子，现在改回去肯定是没有办法跑的，因此得知道问题得根本在哪里——transformer库版本不对，现在较新得版本中参数要求不一致，下一图为源码要求得最低版本，二图为自动安装得最新版本，因此出现不匹配。事到如今只能从头再来了。再也不相信requirement中的&gt;&#x3D;了！</p>
-<p><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1761204661830.png" alt="1761204661830"></p>
-<p><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1761204672249.png" alt="1761204672249"></p>
+<p>但是前面是为了适应参数要求，才把代码改成这样子，现在改回去肯定是没有办法跑的，因此得知道问题得根本在哪里——transformer库版本不对，现在较新得版本中参数要求不一致，下一图为源码要求得最低版本，二图为自动安装得最新版本，因此出现不匹配。事到如今只能从头再来了。再也不相信requirement中的&gt;=了！</p>
+<p><img src="1761204661830.png" alt="1761204661830"></p>
+<p><img src="1761204672249.png" alt="1761204672249"></p>
 <p>切换回正常版本后，果然没有那么多问题了，唯一一个是剪枝中乘法大小不匹配，至此一切顺利！</p>
 <p>下图为测试先导杯结果</p>
 <table>
@@ -148,95 +149,99 @@
 <th>量化加剪枝</th>
 </tr>
 </thead>
-<tbody><tr>
-<td><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1761205122167.png" alt="1761205122167"></td>
-<td><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1761205129375.png" alt="1761205129375"></td>
+<tbody>
+<tr>
+<td><img src="1761205122167.png" alt="1761205122167"></td>
+<td><img src="1761205129375.png" alt="1761205129375"></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>下图为简单测试对话结果,剪枝后变得很不正常</p>
-<p><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1761206468720.png" alt="1761206468720"></p>
-<p><img src="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/1761206474937.png" alt="1761206474937"></p>
+<p><img src="1761206468720.png" alt="1761206468720"></p>
+<p><img src="1761206474937.png" alt="1761206474937"></p>
 <table>
 <thead>
 <tr>
 <th></th>
-<th align="left">piqa</th>
-<th align="left">arc_easy</th>
-<th align="left">arc_challenge</th>
-<th align="left">boolq</th>
-<th align="left">hellaswag</th>
-<th align="left">winogrande</th>
-<th align="left">mathqa</th>
-<th align="left">mmlu</th>
-<th align="left"><strong>总得分率</strong></th>
+<th style="text-align:left">piqa</th>
+<th style="text-align:left">arc_easy</th>
+<th style="text-align:left">arc_challenge</th>
+<th style="text-align:left">boolq</th>
+<th style="text-align:left">hellaswag</th>
+<th style="text-align:left">winogrande</th>
+<th style="text-align:left">mathqa</th>
+<th style="text-align:left">mmlu</th>
+<th style="text-align:left"><strong>总得分率</strong></th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>复现的（2.5）</td>
-<td align="left">79.71</td>
-<td align="left">77.86</td>
-<td align="left">51.37</td>
-<td align="left">82.35</td>
-<td align="left">59.61</td>
-<td align="left">75.22</td>
-<td align="left">35.01</td>
-<td align="left">56.37</td>
-<td align="left"><strong>64.69</strong></td>
+<td style="text-align:left">79.71</td>
+<td style="text-align:left">77.86</td>
+<td style="text-align:left">51.37</td>
+<td style="text-align:left">82.35</td>
+<td style="text-align:left">59.61</td>
+<td style="text-align:left">75.22</td>
+<td style="text-align:left">35.01</td>
+<td style="text-align:left">56.37</td>
+<td style="text-align:left"><strong>64.69</strong></td>
 </tr>
 <tr>
 <td>论文的</td>
-<td align="left">80.52</td>
-<td align="left">77.10</td>
-<td align="left">51.28</td>
-<td align="left">82.54</td>
-<td align="left">79.03</td>
-<td align="left">73.95</td>
-<td align="left">39.18</td>
-<td align="left">56.37</td>
-<td align="left">67.50</td>
+<td style="text-align:left">80.52</td>
+<td style="text-align:left">77.10</td>
+<td style="text-align:left">51.28</td>
+<td style="text-align:left">82.54</td>
+<td style="text-align:left">79.03</td>
+<td style="text-align:left">73.95</td>
+<td style="text-align:left">39.18</td>
+<td style="text-align:left">56.37</td>
+<td style="text-align:left">67.50</td>
 </tr>
 <tr>
 <td>Uni（3）</td>
-<td align="left">82.10</td>
-<td align="left">78.58</td>
-<td align="left">55.80</td>
-<td align="left">82.94</td>
-<td align="left">79.28</td>
-<td align="left">74.19</td>
-<td align="left">39.26</td>
-<td align="left">60.58</td>
-<td align="left">69.09</td>
+<td style="text-align:left">82.10</td>
+<td style="text-align:left">78.58</td>
+<td style="text-align:left">55.80</td>
+<td style="text-align:left">82.94</td>
+<td style="text-align:left">79.28</td>
+<td style="text-align:left">74.19</td>
+<td style="text-align:left">39.26</td>
+<td style="text-align:left">60.58</td>
+<td style="text-align:left">69.09</td>
 </tr>
 <tr>
 <td>Uni（2）</td>
-<td align="left">61.98</td>
-<td align="left">47.20</td>
-<td align="left">25.71</td>
-<td align="left">62.39</td>
-<td align="left">41.91</td>
-<td align="left">53.22</td>
-<td align="left">22.79</td>
-<td align="left">30.36</td>
-<td align="left">42.67</td>
+<td style="text-align:left">61.98</td>
+<td style="text-align:left">47.20</td>
+<td style="text-align:left">25.71</td>
+<td style="text-align:left">62.39</td>
+<td style="text-align:left">41.91</td>
+<td style="text-align:left">53.22</td>
+<td style="text-align:left">22.79</td>
+<td style="text-align:left">30.36</td>
+<td style="text-align:left">42.67</td>
 </tr>
 <tr>
 <td>无压缩</td>
-<td align="left">85.20</td>
-<td align="left">84.01</td>
-<td align="left">57.17</td>
-<td align="left">85.35</td>
-<td align="left">81.48</td>
-<td align="left">75.93</td>
-<td align="left">39.29</td>
-<td align="left">67.88</td>
-<td align="left">71.29</td>
+<td style="text-align:left">85.20</td>
+<td style="text-align:left">84.01</td>
+<td style="text-align:left">57.17</td>
+<td style="text-align:left">85.35</td>
+<td style="text-align:left">81.48</td>
+<td style="text-align:left">75.93</td>
+<td style="text-align:left">39.29</td>
+<td style="text-align:left">67.88</td>
+<td style="text-align:left">71.29</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://sss-hust.github.io/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/" data-id="cmi8nhe2t0007ecy24pgi053w" data-title="MC-Moe复现" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://sss-hust.github.io/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/" data-id="cmi8njn2y0005awy2c7ej6wto" data-title="MC-Moe复现" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       

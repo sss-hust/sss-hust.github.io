@@ -109,16 +109,14 @@
 <p>但是又出现了github没法拉取得问题，想着用gitee转发下，结果lfs需要充钱才能用（太坑了），自己下载到本地又发现lfs控制得文件都是指针，无奈只能clone仓库了，这才把代码迁移过来。</p>
 <p>迁移过来，又遇到了依赖地狱，没有办法跑起来，只能新建虚拟环境，使用以下命令安装Anaconda（参考<a target="_blank" rel="noopener" href="https://geek-docs.com/python/python-ask-answer/625_python_install_anaconda_on_ubuntu_or_linux_via_command_line.html">Python 在Ubuntu（或Linux）上通过命令行安装Anaconda|极客教程</a>）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 获取安装包</span><br><span class="line">wget https://repo.anaconda.com/archive/Anaconda3-2025.06-1-Linux-x86_64.sh</span><br><span class="line"># 运行安装脚本</span><br><span class="line">bash Anaconda3-2025.06-1-Linux-x86_64.sh</span><br><span class="line"># 一路回车、yes即可安装成功</span><br><span class="line"># 在.bashrc中添加环境依赖</span><br><span class="line"># 添加Anaconda到系统环境变量</span><br><span class="line">export PATH=&quot;/root/anaconda3/bin:$PATH&quot;</span><br><span class="line">source ~/.bashrc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>安装完后，发现ipynb没有办法切换内核，于是继续寻找教程（参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014264373/article/details/119390267">【最全指南】如何在 Jupyter Notebook 中切换&#x2F;使用 conda 虚拟环境？_多个conda环境 notebook用的哪个-CSDN博客</a>s）</p>
+<p>安装完后，发现ipynb没有办法切换内核，于是继续寻找教程（参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014264373/article/details/119390267">【最全指南】如何在 Jupyter Notebook 中切换/使用 conda 虚拟环境？_多个conda环境 notebook用的哪个-CSDN博客</a>s）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">conda activate my-conda-env    # this is the environment for your project and code</span><br><span class="line">conda install ipykernel</span><br><span class="line">conda deactivate</span><br><span class="line"></span><br><span class="line">conda activate base      # could be also some other environment</span><br><span class="line">conda install nb_conda_kernels</span><br><span class="line">jupyter notebook</span><br><span class="line"></span><br><span class="line"># 上述方法不行时，采用单独命令</span><br><span class="line">python -m ipykernel install --user --name=your_env_name --display-name &quot;Python (your_env_name)&quot;</span><br></pre></td></tr></table></figure>
-
 <p>操作完毕后，即可切换啦，但是在命令行下载新的依赖后，似乎没法自动导入，需要重启内核，ipynb才可以识别到</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://sss-hust.github.io/2025/08/04/%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%E6%AF%94%E8%B5%9B%E6%97%A5%E5%BF%97/" data-id="cmi8nhe34000tecy2ap207fie" data-title="情感分析比赛日志" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://sss-hust.github.io/2025/08/04/%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%E6%AF%94%E8%B5%9B%E6%97%A5%E5%BF%97/" data-id="cmi8njn360010awy2895k8lj2" data-title="情感分析比赛日志" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       

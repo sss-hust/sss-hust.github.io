@@ -119,13 +119,13 @@
 </blockquote>
 <p>在我的理解中，AI还处于模仿人类思维，因此其知识空间应该也与人类相似，文本向量可以理解为情感空间，每个词在情感空间都有一个对应的点，全部维度可以唯一确定一个文字。自然，情感也包含里语义。</p>
 <p>transformer架构看起来很简洁，一个编码器一个解码器，编码器是解析文字输入，解码器把已生成的输出变回向量，编码器就是简单的注意力层加全连接层；解码器首先用多头注意力层，加上注意力层和全连接层，每层连接都加上了残差连接，且第二个注意力层加上了掩码机制</p>
-<p><img src="/2025/07/29/AI%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/1755418619305.png" alt="1755418619305"></p>
+<p><img src="1755418619305.png" alt="1755418619305"></p>
 <p>Key、Value、Query，是注意力层从左到右的三个输出，在自然语言处理中，key和value是同一个，query表示当前输入向量，通过query和key进行操作，得到加权系数，再用加权系数把value聚合得到最终的注意力分数</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://sss-hust.github.io/2025/07/29/AI%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/" data-id="cmi8nhe2i0000ecy2ddy64uum" data-title="AI学习第一天" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://sss-hust.github.io/2025/07/29/AI%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9/" data-id="cmi8njn2r0000awy204iqe0rq" data-title="AI学习第一天" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       

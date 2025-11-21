@@ -6,12 +6,12 @@
   
   <title>论文复现 | 思君</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Mixtral Offloading代码给的很完整，唯一遇到问题是下载模型时服务器内存爆了，失败了两次。其次重新下载的tokener.json似乎有问题，运行不起来，只能采用慢速的tokener.model了。 先使用的 offload_per_layer &#x3D; 7，这样速度特别慢，token生成速率为0.3&#x2F;s，不论输入输出token数是多少，稳定的一匹，说明卸载太多了，都在等专家传输到">
+  <meta name="description" content="Mixtral Offloading 代码给的很完整，唯一遇到问题是下载模型时服务器内存爆了，失败了两次。其次重新下载的tokener.json似乎有问题，运行不起来，只能采用慢速的tokener.model了。 先使用的 offload_per_layer &#x3D; 7，这样速度特别慢，token生成速率为0.3&#x2F;s，不论输入输出token数是多少，稳定的一匹，说明卸载太多了，都在等专家传输到GPU中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="论文复现">
 <meta property="og:url" content="https://sss-hust.github.io/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/index.html">
 <meta property="og:site_name" content="思君">
-<meta property="og:description" content="Mixtral Offloading代码给的很完整，唯一遇到问题是下载模型时服务器内存爆了，失败了两次。其次重新下载的tokener.json似乎有问题，运行不起来，只能采用慢速的tokener.model了。 先使用的 offload_per_layer &#x3D; 7，这样速度特别慢，token生成速率为0.3&#x2F;s，不论输入输出token数是多少，稳定的一匹，说明卸载太多了，都在等专家传输到">
+<meta property="og:description" content="Mixtral Offloading 代码给的很完整，唯一遇到问题是下载模型时服务器内存爆了，失败了两次。其次重新下载的tokener.json似乎有问题，运行不起来，只能采用慢速的tokener.model了。 先使用的 offload_per_layer &#x3D; 7，这样速度特别慢，token生成速率为0.3&#x2F;s，不论输入输出token数是多少，稳定的一匹，说明卸载太多了，都在等专家传输到GPU中">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sss-hust.github.io/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/1763453429251.png">
 <meta property="og:image" content="https://sss-hust.github.io/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/1763621008360.png">
@@ -110,25 +110,27 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="Mixtral-Offloading"><a href="#Mixtral-Offloading" class="headerlink" title="Mixtral Offloading"></a>Mixtral Offloading</h2><p>代码给的很完整，唯一遇到问题是下载模型时服务器内存爆了，失败了两次。其次重新下载的tokener.json似乎有问题，运行不起来，只能采用慢速的tokener.model了。</p>
-<p>先使用的 <code>offload_per_layer = 7</code>，这样速度特别慢，token生成速率为0.3&#x2F;s，不论输入输出token数是多少，稳定的一匹，说明卸载太多了，都在等专家传输到GPU中</p>
+        <h2 id="Mixtral-Offloading">Mixtral Offloading</h2>
+<p>代码给的很完整，唯一遇到问题是下载模型时服务器内存爆了，失败了两次。其次重新下载的tokener.json似乎有问题，运行不起来，只能采用慢速的tokener.model了。</p>
+<p>先使用的 <code>offload_per_layer = 7</code>，这样速度特别慢，token生成速率为0.3/s，不论输入输出token数是多少，稳定的一匹，说明卸载太多了，都在等专家传输到GPU中</p>
 <p>具体代码中，最核心的就是专家缓冲类了，因为初始导入时，并没有把专家全都导入，而是用这个管理系统动态创建，swap的时候，要把CPU上的专家传输到buffer，然后GPU上不要的也传到buffer，CPU传的是下一层需要的专家，GPU淘汰的是当前层不需要的专家，传输完后GPU显存池会有个空位，变成buffer（指针互换），CPU和GPU都维护一个内存池，与专家数有关，buffer硬性设置为4个。</p>
 <p>在我的硬件上无法每层保留四个专家（论文建议48G，但为什么无法满足），只能保存三个专家。生成速度到了0.5，还比较稳定，时间依旧是卡在生成速率上。</p>
-<h2 id="Fiddle"><a href="#Fiddle" class="headerlink" title="Fiddle"></a>Fiddle</h2><p>写的非常简短，一度让我以为它是坑蒙拐骗的，但是看git记录，有用AVX512编写的计算核心，但不知道为什么删掉了，最终使用的是pytorch原始版本（存疑）。</p>
+<h2 id="Fiddle">Fiddle</h2>
+<p>写的非常简短，一度让我以为它是坑蒙拐骗的，但是看git记录，有用AVX512编写的计算核心，但不知道为什么删掉了，最终使用的是pytorch原始版本（存疑）。</p>
 <p>测试环境如图，在实验室服务器上，用的是4090D（大陆魔改版48G），但是CPU为Gold 5220 @ 2.20GHz，只支持Gen3，会比论文里的测试慢一点。环境一每层卸载7个专家，环境二每层卸载5个专家，但是我跑fiddle却爆显存了，待解决（已经解决，核心类中存在bug，计算完的专家没有放回CPU上，爆显存）</p>
-<p><img src="/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/1763453429251.png" alt="1763453429251"></p>
+<p><img src="1763453429251.png" alt="1763453429251"></p>
 <p>在4090D中，fiddle初始化选择保留125个专家，总专家数256个，基本保留一半专家，从卸载角度，可能每层平均卸载4个专家（会少一点专家，比128少几个就恰好不会爆显存），测试结果如下</p>
-<p><img src="/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/1763621008360.png" alt="1763621008360"></p>
+<p><img src="1763621008360.png" alt="1763621008360"></p>
 <p>横向对比，固定input时，output变大token生成速率也变大，原因是随着解码时间的减少，均摊了prefill的时间；纵向对比，固定output时，input变大生成速率降低，原因是prefill时间变久；从专家命中率可以看出，基本都会缺少一个专家，但不影响解码时间，因为就算未命中，也会传输给CPU进行计算，减少传输时间。</p>
-<p><img src="/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/1763622110979.png" alt="1763622110979"></p>
+<p><img src="1763622110979.png" alt="1763622110979"></p>
 <p>这是fiddle中的microbench测试，可以看到，CPU到GPU传输时间非常大，而在CPU上算一个token时间只需要10s左右，因此只要生成的token数少于7个，直接在CPU上计算的收益就会更大，因此fiddle对解码的提升无比巨大，对于prefill阶段,由于每个专家分配的token数未超过阈值，因此也会触发在CPU上计算，从而减少时间，下图为offloading的时间图</p>
-<p><img src="/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/1763627563524.png" alt="1763627563524"></p>
+<p><img src="1763627563524.png" alt="1763627563524"></p>
 <p>提升还是比较明显的</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://sss-hust.github.io/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/" data-id="cmi8nhe3f001iecy2gdcyc4vc" data-title="论文复现" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://sss-hust.github.io/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/" data-id="cmi8njn3a001iawy2c5ai9sat" data-title="论文复现" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
