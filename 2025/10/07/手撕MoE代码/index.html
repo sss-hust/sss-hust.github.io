@@ -1,111 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>手撕MoE代码 | 思君</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="此前略读了moe发展历程的论文，发现存在一大段的空白时间，在1991年jordan就已经提出了专家系统的雏形，但是直到2017年才由谷歌实现第一个大规模MoE+RNN模型，不由得去思考，为什么是在这个时间点出现。 通过AI辅助分析，我认为有以下几点（暂未深入分析，个人猜测）：  显卡发展较慢，在2016年以前显卡暂不具备大规模运算能力，与moe巨大参数相违背，在2016年出现GTX系列，晶体管数量">
-<meta property="og:type" content="article">
-<meta property="og:title" content="手撕MoE代码">
-<meta property="og:url" content="https://sss-hust.github.io/2025/10/07/%E6%89%8B%E6%92%95MoE%E4%BB%A3%E7%A0%81/index.html">
-<meta property="og:site_name" content="思君">
-<meta property="og:description" content="此前略读了moe发展历程的论文，发现存在一大段的空白时间，在1991年jordan就已经提出了专家系统的雏形，但是直到2017年才由谷歌实现第一个大规模MoE+RNN模型，不由得去思考，为什么是在这个时间点出现。 通过AI辅助分析，我认为有以下几点（暂未深入分析，个人猜测）：  显卡发展较慢，在2016年以前显卡暂不具备大规模运算能力，与moe巨大参数相违背，在2016年出现GTX系列，晶体管数量">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-10-07T12:04:39.000Z">
-<meta property="article:modified_time" content="2025-11-18T08:02:23.471Z">
-<meta property="article:author" content="杨慕怡">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="思君" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>手撕MoE代码 - 思君</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="思君"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="思君"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="此前略读了moe发展历程的论文，发现存在一大段的空白时间，在1991年jordan就已经提出了专家系统的雏形，但是直到2017年才由谷歌实现第一个大规模MoE+RNN模型，不由得去思考，为什么是在这个时间点出现。 通过AI辅助分析，我认为有以下几点（暂未深入分析，个人猜测）：  显卡发展较慢，在2016年以前显卡暂不具备大规模运算能力，与moe巨大参数相违背，在2016年出现GTX系列，晶体管数量"><meta property="og:type" content="blog"><meta property="og:title" content="手撕MoE代码"><meta property="og:url" content="https://sss-hust.github.io/2025/10/07/%E6%89%8B%E6%92%95MoE%E4%BB%A3%E7%A0%81/"><meta property="og:site_name" content="思君"><meta property="og:description" content="此前略读了moe发展历程的论文，发现存在一大段的空白时间，在1991年jordan就已经提出了专家系统的雏形，但是直到2017年才由谷歌实现第一个大规模MoE+RNN模型，不由得去思考，为什么是在这个时间点出现。 通过AI辅助分析，我认为有以下几点（暂未深入分析，个人猜测）：  显卡发展较慢，在2016年以前显卡暂不具备大规模运算能力，与moe巨大参数相违背，在2016年出现GTX系列，晶体管数量"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://sss-hust.github.io/img/og_image.png"><meta property="article:published_time" content="2025-10-07T12:04:39.000Z"><meta property="article:modified_time" content="2025-11-18T08:02:23.471Z"><meta property="article:author" content="杨慕怡"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://sss-hust.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://sss-hust.github.io/2025/10/07/%E6%89%8B%E6%92%95MoE%E4%BB%A3%E7%A0%81/"},"headline":"手撕MoE代码","image":["https://sss-hust.github.io/img/og_image.png"],"datePublished":"2025-10-07T12:04:39.000Z","dateModified":"2025-11-18T08:02:23.471Z","author":{"@type":"Person","name":"杨慕怡"},"publisher":{"@type":"Organization","name":"思君","logo":{"@type":"ImageObject","url":"https://sss-hust.github.io/img/logo.svg"}},"description":"此前略读了moe发展历程的论文，发现存在一大段的空白时间，在1991年jordan就已经提出了专家系统的雏形，但是直到2017年才由谷歌实现第一个大规模MoE+RNN模型，不由得去思考，为什么是在这个时间点出现。 通过AI辅助分析，我认为有以下几点（暂未深入分析，个人猜测）：  显卡发展较慢，在2016年以前显卡暂不具备大规模运算能力，与moe巨大参数相违背，在2016年出现GTX系列，晶体管数量"}</script><link rel="canonical" href="https://sss-hust.github.io/2025/10/07/%E6%89%8B%E6%92%95MoE%E4%BB%A3%E7%A0%81/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
 
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
 
-  
-  
-<meta name="generator" content="Hexo 6.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">思君</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">--君住长江尾，我在长江中</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://sss-hust.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-手撕MoE代码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/10/07/%E6%89%8B%E6%92%95MoE%E4%BB%A3%E7%A0%81/" class="article-date">
-  <time class="dt-published" datetime="2025-10-07T12:04:39.000Z" itemprop="datePublished">2025-10-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/MoE/">MoE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      手撕MoE代码
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>此前略读了moe发展历程的论文，发现存在一大段的空白时间，在1991年jordan就已经提出了专家系统的雏形，但是直到2017年才由谷歌实现第一个大规模MoE+RNN模型，不由得去思考，为什么是在这个时间点出现。</p>
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="思君" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-10-07T12:04:39.000Z" title="2025/10/7 20:04:39">2025-10-07</time>发表</span><span class="level-item"><time dateTime="2025-11-18T08:02:23.471Z" title="2025/11/18 16:02:23">2025-11-18</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/MoE/">MoE</a></span><span class="level-item">20 分钟读完 (大约3047个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">手撕MoE代码</h1><div class="content"><p>此前略读了moe发展历程的论文，发现存在一大段的空白时间，在1991年jordan就已经提出了专家系统的雏形，但是直到2017年才由谷歌实现第一个大规模MoE+RNN模型，不由得去思考，为什么是在这个时间点出现。</p>
 <p>通过AI辅助分析，我认为有以下几点（暂未深入分析，个人猜测）：</p>
 <ul>
 <li>显卡发展较慢，在2016年以前显卡暂不具备大规模运算能力，与moe巨大参数相违背，在2016年出现GTX系列，晶体管数量暴涨，才具备一定的基础能力。</li>
@@ -120,167 +44,72 @@
 <li>多任务学习能力强</li>
 </ul>
 <p>缺点也明显，训练不稳定（专家负载问题，容易一个专家一直干活）；并行通信代价高（EP并行需要大量通信带宽）；模型复杂度高，研发成本相对高。</p>
-<h2 id="sMoE（实现Outrageously-Large-Neural-Networks中的专家均衡）">sMoE（实现Outrageously-Large-Neural-Networks中的专家均衡）</h2>
-<p>接下来开始手撕MoE代码——sMoE</p>
+<h2 id="sMoE（实现Outrageously-Large-Neural-Networks中的专家均衡）"><a href="#sMoE（实现Outrageously-Large-Neural-Networks中的专家均衡）" class="headerlink" title="sMoE（实现Outrageously-Large-Neural-Networks中的专家均衡）"></a>sMoE（实现Outrageously-Large-Neural-Networks中的专家均衡）</h2><p>接下来开始手撕MoE代码——sMoE</p>
 <p>首先定义专家结构（简单MLP层）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MLP</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, input_size, output_size, hidden_size</span>):</span><br><span class="line">        <span class="built_in">super</span>(MLP, self).__init__()</span><br><span class="line">        self.fc1 = nn.Linear(input_size, hidden_size)</span><br><span class="line">        self.fc2 = nn.Linear(hidden_size, output_size)</span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line">        self.soft = nn.Softmax(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        out = self.fc1(x)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line">        out = self.fc2(out)</span><br><span class="line">        out = self.soft(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+
 <p>接着定义专家系统的核心逻辑（包含噪声与重要性机制），核心思想是为了防止某些专家过于强大，导致其它专家激活不了，从而失去稀疏性的特点，引入负载均衡机制，其包含两个维度，一是专家之间负载均衡，二是一个专家内对于不同token的激活分数不要差太多。第一个维度通过重要性解决，即各专家的门控分数的变异系数的平方乘以手动调节的参数；第二个维度是为了均衡训练中各GPU的压力，单只有第一个维度，可能出现少量token高门控分数的专家，相对的是大量token低门控分数的专家，从而也形成了平衡，因此必须引入token级别的负载均衡，通过引入噪声机制，将其变为可导的损失——衡量一个专家进入top-k的概率，由于top-k需要与其它专家在token级别进行比较，自然就能通过反向传播优化了。其公式如下：</p>
-<p>$$<br>
-P(x, i) = \Pr\left( (x \cdot W_g)<em>i + \text{StandardNormal}() \cdot \text{Softplus}\big((x \cdot W</em>{\text{noise}})_i\big) &gt; \text{kth_excluding}\big(H(x), k, i\big) \right)<br>
-$$</p>
+$$P(x, i) = \Pr\left( (x \cdot W_g)_i + \text{StandardNormal}() \cdot \text{Softplus}\big((x \cdot W_{\text{noise}})_i\big) > \text{kth\_excluding}\big(H(x), k, i\big) \right)$$
 <p>公式一为定义的概率值，即当前专家i被tokenx选择的概率，由于其中存在一个标准正态分布变量，因此可以将其转化为如下随机变量，进而可以求导。分子为当前专家得分减去进入top-k的阈值得分，分母为噪声大小参数（可学习）。这儿主要因子为分子部分，如前面分析，直接比较token级别的分配；分母主要用于稳定梯度。公式运用了正态分布函数特性简化。</p>
-<p>$$<br>
-P\left(x,i\right)=\Phi\left(\frac{\left(x\cdot W_g\right)<em>i-\text{kth}_\text{excluding }\left(H\left(x\right),k,i\right)}{\text{Softplus}\left(\left(x\cdot W</em>\text{ noise }\right)_i\right)}\right)<br>
-$$</p>
+$$P\left(x,i\right)=\Phi\left(\frac{\left(x\cdot W_g\right)_i-\text{kth}\_\text{excluding }\left(H\left(x\right),k,i\right)}{\text{Softplus}\left(\left(x\cdot W_\text{ noise }\right)_i\right)}\right)$$
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MoE</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, input_size, output_size, num_experts, hidden_size, noisy_gating=<span class="literal">True</span>, k=<span class="number">4</span></span>):</span><br><span class="line">        <span class="built_in">super</span>(MoE, self).__init__()</span><br><span class="line">        self.noisy_gating = noisy_gating</span><br><span class="line">        self.num_experts = num_experts</span><br><span class="line">        self.output_size = output_size</span><br><span class="line">        self.input_size = input_size</span><br><span class="line">        self.hidden_size = hidden_size</span><br><span class="line">        self.k = k</span><br><span class="line">        <span class="comment"># instantiate experts</span></span><br><span class="line">        self.experts = nn.ModuleList([MLP(self.input_size, self.output_size, self.hidden_size) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.num_experts)])</span><br><span class="line">        self.w_gate = nn.Parameter(torch.zeros(input_size, num_experts), requires_grad=<span class="literal">True</span>)</span><br><span class="line">        self.w_noise = nn.Parameter(torch.zeros(input_size, num_experts), requires_grad=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">        self.softplus = nn.Softplus()</span><br><span class="line">        self.softmax = nn.Softmax(<span class="number">1</span>)</span><br><span class="line">        self.register_buffer(<span class="string">&quot;mean&quot;</span>, torch.tensor([<span class="number">0.0</span>]))</span><br><span class="line">        self.register_buffer(<span class="string">&quot;std&quot;</span>, torch.tensor([<span class="number">1.0</span>]))</span><br><span class="line">        <span class="keyword">assert</span>(self.k &lt;= self.num_experts)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">cv_squared</span>(<span class="params">self, x</span>):</span><br><span class="line">        eps = <span class="number">1e-10</span></span><br><span class="line">        <span class="keyword">if</span> x.shape[<span class="number">0</span>] == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> torch.tensor([<span class="number">0</span>], device=x.device, dtype=x.dtype)</span><br><span class="line">        <span class="keyword">return</span> x.<span class="built_in">float</span>().var() / (x.<span class="built_in">float</span>().mean()**<span class="number">2</span> + eps)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, loss_coef=<span class="number">1e-2</span></span>):</span><br><span class="line">        <span class="comment"># 1. 计算noisy top k gating决定哪几个expert会进行计算</span></span><br><span class="line">        gates, load = self.noisy_top_k_gating(x, self.training)</span><br><span class="line">        importance = gates.<span class="built_in">sum</span>(<span class="number">0</span>)</span><br><span class="line">        <span class="comment"># 负载均衡loss</span></span><br><span class="line">        loss = self.cv_squared(importance) + self.cv_squared(load)</span><br><span class="line">        loss *= loss_coef</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2. batch dispatcher 分配不同的数据给不同的专家，提高训练并行性</span></span><br><span class="line">        <span class="comment"># dispatcher类在本文不介绍，看本文图解更加清晰</span></span><br><span class="line">        dispatcher = SparseDispatcher(self.num_experts, gates) <span class="comment">#创建分配器</span></span><br><span class="line">        expert_inputs = dispatcher.dispatch(x) <span class="comment">#给每个专家分配x，整理输入</span></span><br><span class="line">        gates = dispatcher.expert_to_gates() </span><br><span class="line">        expert_outputs = [self.experts[i](expert_inputs[i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.num_experts)] <span class="comment"># 每个专家计算对应x的输出</span></span><br><span class="line">        y = dispatcher.combine(expert_outputs) <span class="comment">#对于xi，计算xi在top-k专家的mixture输出</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 这里的y是sMoE的预测， loss为 load balance，并不是最终的loss</span></span><br><span class="line">        <span class="keyword">return</span> y, loss</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_gates_to_load</span>(<span class="params">self, gates</span>):</span><br><span class="line">        <span class="keyword">return</span> (gates &gt; <span class="number">0</span>).<span class="built_in">sum</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 估计Prob从而计算估计的Load Loss</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_prob_in_top_k</span>(<span class="params">self, clean_values, noisy_values, noise_stddev, noisy_top_values</span>):</span><br><span class="line">        <span class="comment"># 原论文在进入函数前会将(B,N,...)reshape为(T = B*N,...),我们在这里是简化实现，因此无需展平，参数最后一个包含k+1专家，方便计算概率</span></span><br><span class="line">        batch = clean_values.size(<span class="number">0</span>)</span><br><span class="line">        m = noisy_top_values.size(<span class="number">1</span>)</span><br><span class="line">        top_values_flat = noisy_top_values.flatten()   <span class="comment"># (T * K+1，)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># top-k时会把无关的expert的gating置为0， 这时要填补一些随机值，使得参数是可导的</span></span><br><span class="line">        threshold_positions_if_in = torch.arange(batch, device=clean_values.device) * m + self.k   <span class="comment"># 阈值k专家所在位置</span></span><br><span class="line">        <span class="comment"># gather的作用为将index对应output位置的值作为维度dim的值，dim=2，out[i][j][k] = input[i][j][index[i][j][k]] </span></span><br><span class="line">        threshold_if_in = torch.unsqueeze(torch.gather(top_values_flat, <span class="number">0</span>, threshold_positions_if_in), <span class="number">1</span>)   <span class="comment"># (T*K,1)</span></span><br><span class="line">        is_in = torch.gt(noisy_values, threshold_if_in)   <span class="comment"># 逐元素比较&gt;，(T,E)</span></span><br><span class="line">        threshold_positions_if_out = threshold_positions_if_in - <span class="number">1</span></span><br><span class="line">        threshold_if_out = torch.unsqueeze(torch.gather(top_values_flat, <span class="number">0</span>, threshold_positions_if_out), <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 这里计算每个专家的估计负载值,对于模型来说，并不是只有前k个才有机会选入，这个阈值是我们人为定制的，因此可以用差值的概率作为损失，让每个专家对于一个token都尽可能均衡，减少出现极大或极小gate函数</span></span><br><span class="line">        normal = Normal(self.mean, self.std)</span><br><span class="line">        prob_if_in = normal.cdf((clean_values - threshold_if_in)/noise_stddev)</span><br><span class="line">        prob_if_out = normal.cdf((clean_values - threshold_if_out)/noise_stddev)</span><br><span class="line">        prob = torch.where(is_in, prob_if_in, prob_if_out)</span><br><span class="line">        <span class="keyword">return</span> prob   <span class="comment"># (T,E)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 完整计算noisy top k gating</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">noisy_top_k_gating</span>(<span class="params">self, x, train, noise_epsilon=<span class="number">1e-2</span></span>):</span><br><span class="line">        <span class="comment">#shape(x)=(Batch,Num,Input)</span></span><br><span class="line">        clean_logits = x @ self.w_gate    <span class="comment"># (B,N,E)</span></span><br><span class="line">        <span class="keyword">if</span> self.noisy_gating <span class="keyword">and</span> train:</span><br><span class="line">            raw_noise_stddev = x @ self.w_noise   <span class="comment"># (B,N,E)</span></span><br><span class="line">            noise_stddev = ((self.softplus(raw_noise_stddev) + noise_epsilon))   <span class="comment"># (B,N,E)</span></span><br><span class="line">            noisy_logits = clean_logits + (torch.randn_like(clean_logits) * noise_stddev)   <span class="comment"># (B,N,E),逐个相乘</span></span><br><span class="line">            logits = noisy_logits</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            logits = clean_logits</span><br><span class="line">        <span class="comment"># 训练阶段在topk之前可以加入一个极小的噪声，打破可能出现的平局界面</span></span><br><span class="line">        <span class="comment"># 选出top-k gating值和序号</span></span><br><span class="line">        top_logits, top_indices = logits.topk(<span class="built_in">min</span>(self.k + <span class="number">1</span>, self.num_experts), dim=<span class="number">1</span>)</span><br><span class="line">        top_k_logits = top_logits[:, :self.k]   <span class="comment"># (B, N, k)</span></span><br><span class="line">        top_k_indices = top_indices[:, :self.k]</span><br><span class="line">        top_k_gates = self.softmax(top_k_logits)   <span class="comment"># (B, N, k)</span></span><br><span class="line"></span><br><span class="line">        zeros = torch.zeros_like(logits, requires_grad=<span class="literal">True</span>) <span class="comment"># 创建gating 0值</span></span><br><span class="line">        gates = zeros.scatter(<span class="number">1</span>, top_k_indices, top_k_gates) <span class="comment"># 在0值上填top-k gating值</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.noisy_gating <span class="keyword">and</span> self.k &lt; self.num_experts <span class="keyword">and</span> train:</span><br><span class="line">            load = (self._prob_in_top_k(clean_logits, noisy_logits, noise_stddev, top_logits)).<span class="built_in">sum</span>(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            load = self._gates_to_load(gates)</span><br><span class="line">        <span class="keyword">return</span> gates, load</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">x, y, model, loss_fn, optim</span>):</span><br><span class="line">    y_hat, aux_loss = model(x.<span class="built_in">float</span>())</span><br><span class="line">    loss = loss_fn(y_hat, y)</span><br><span class="line">    total_loss = loss + aux_loss  <span class="comment"># 预测与label的loss + 负载均衡loss</span></span><br><span class="line">    optim.zero_grad()</span><br><span class="line">    total_loss.backward()</span><br><span class="line">    optim.step()</span><br><span class="line">    <span class="keyword">return</span> model</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="Mixtral-8-7B实现（使用switch-Moe中的负载均衡损失）">Mixtral 8*7B实现（使用switch Moe中的负载均衡损失）</h2>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/mixtral/modular_mixtral.py">transformers/src/transformers/models/mixtral/modular_mixtral.py </a></p>
+
+<h2 id="Mixtral-8-7B实现（使用switch-Moe中的负载均衡损失）"><a href="#Mixtral-8-7B实现（使用switch-Moe中的负载均衡损失）" class="headerlink" title="Mixtral 8*7B实现（使用switch Moe中的负载均衡损失）"></a>Mixtral 8*7B实现（使用switch Moe中的负载均衡损失）</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/mixtral/modular_mixtral.py">transformers&#x2F;src&#x2F;transformers&#x2F;models&#x2F;mixtral&#x2F;modular_mixtral.py </a></p>
 </blockquote>
 <p>依旧是先定义专家模型，和上述差不多，一个FFN层，但是使用现在比较流行的基于SwiGLU激活函数的前馈神经网络，该激活函数梯度平滑，并且融合了门控机制，可以控制信息的流转。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MixtralMLP</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, config: MixtralConfig</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.ffn_dim = config.intermediate_size</span><br><span class="line">        self.hidden_dim = config.hidden_size</span><br><span class="line"></span><br><span class="line">        self.w1 = nn.Linear(self.hidden_dim, self.ffn_dim, bias=<span class="literal">False</span>)</span><br><span class="line">        self.w2 = nn.Linear(self.ffn_dim, self.hidden_dim, bias=<span class="literal">False</span>)</span><br><span class="line">        self.w3 = nn.Linear(self.hidden_dim, self.ffn_dim, bias=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">        self.act_fn = ACT2FN[config.hidden_act]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, hidden_states</span>):</span><br><span class="line">        current_hidden_states = self.act_fn(self.w1(hidden_states)) * self.w3(hidden_states)</span><br><span class="line">        current_hidden_states = self.w2(current_hidden_states)</span><br><span class="line">        <span class="keyword">return</span> current_hidden_states   <span class="comment"># (T,D)</span></span><br></pre></td></tr></table></figure>
+
 <p>接着定义专家组,负责将展平的数据发给对应专家进行加权计算，得到最终的结果</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MixtralExperts</span>(nn.ModuleList):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, config: MixtralConfig</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.top_k = config.num_experts_per_tok</span><br><span class="line">        self.num_experts = config.num_local_experts</span><br><span class="line">        <span class="comment"># 添加上述定义的专家</span></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(self.num_experts):</span><br><span class="line">            self.append(MixtralMLP(config))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self, hidden_states: torch.Tensor, top_k_index: torch.Tensor, top_k_weights: torch.Tensor</span></span><br><span class="line"><span class="params">    </span>) -&gt; torch.Tensor:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        输入:</span></span><br><span class="line"><span class="string">            hidden_states: (batch_size * sequence_length, hidden_dim)</span></span><br><span class="line"><span class="string">            top_k_index: (batch_size * sequence_length, top_k)</span></span><br><span class="line"><span class="string">            top_k_weights: (batch_size * sequence_length, top_k)</span></span><br><span class="line"><span class="string">        输出:</span></span><br><span class="line"><span class="string">            (batch_size * sequence_length, hidden_dim)</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        final_hidden_states = torch.zeros_like(hidden_states)</span><br><span class="line">        expert_mask = torch.nn.functional.one_hot(top_k_index, num_classes=self.num_experts).permute(<span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>)   <span class="comment"># (E,K,T)</span></span><br><span class="line">        <span class="comment"># 只遍历已经激活的专家</span></span><br><span class="line">        expert_hit = torch.greater(expert_mask.<span class="built_in">sum</span>(dim=(-<span class="number">1</span>, -<span class="number">2</span>)), <span class="number">0</span>).nonzero()</span><br><span class="line">        <span class="keyword">for</span> expert_idx <span class="keyword">in</span> expert_hit:</span><br><span class="line">            idx, top_x = torch.where(expert_mask[expert_idx].squeeze(<span class="number">0</span>))</span><br><span class="line">            <span class="comment"># 提取出当前专家需要处理的token(M,D)</span></span><br><span class="line">            current_state = hidden_states[<span class="literal">None</span>, top_x].reshape(-<span class="number">1</span>, hidden_states.shape[-<span class="number">1</span>])</span><br><span class="line">            <span class="comment"># (M,D)*(M,1)</span></span><br><span class="line">            current_hidden_states = self[expert_idx](current_state) * top_k_weights[top_x, idx, <span class="literal">None</span>]</span><br><span class="line">            final_hidden_states.index_add_(<span class="number">0</span>, top_x, current_hidden_states.to(hidden_states.dtype))</span><br><span class="line">        <span class="keyword">return</span> final_hidden_states</span><br></pre></td></tr></table></figure>
+
 <p>再接着定义专家模块</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MixtralSparseMoeBlock</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, config</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.top_k = config.num_experts_per_tok</span><br><span class="line">        self.jitter_noise = config.router_jitter_noise</span><br><span class="line">        self.gate = nn.Linear(config.hidden_size, config.num_experts, bias=<span class="literal">False</span>)</span><br><span class="line">        self.experts = MixtralExperts(config)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">route_tokens_to_experts</span>(<span class="params">self, router_logits</span>):</span><br><span class="line">        routing_weights = torch.nn.functional.softmax(router_logits.<span class="built_in">float</span>(), dim=-<span class="number">1</span>)</span><br><span class="line">        top_k_weights, top_k_index = torch.topk(routing_weights, self.top_k, dim=-<span class="number">1</span>)</span><br><span class="line">        top_k_weights /= top_k_weights.<span class="built_in">sum</span>(dim=-<span class="number">1</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">return</span> top_k_index, top_k_weights.to(router_logits.dtype)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, hidden_states: torch.Tensor</span>) -&gt; <span class="built_in">tuple</span>[torch.Tensor, torch.Tensor]:</span><br><span class="line">        batch_size, sequence_length, hidden_dim = hidden_states.shape</span><br><span class="line">        <span class="comment"># 避免专家坍缩，即冷启动</span></span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.jitter_noise &gt; <span class="number">0</span>:</span><br><span class="line">            hidden_states *= torch.empty_like(hidden_states).uniform_(<span class="number">1.0</span> - self.jitter_noise, <span class="number">1.0</span> + self.jitter_noise)</span><br><span class="line">        hidden_states = hidden_states.view(-<span class="number">1</span>, hidden_states.shape[-<span class="number">1</span>])   <span class="comment"># 将前两维度展平成一个维度</span></span><br><span class="line">        router_logits = self.gate(hidden_states)</span><br><span class="line">        top_k_index, top_k_weights = self.route_tokens_to_experts(router_logits)</span><br><span class="line">        hidden_states = self.experts(hidden_states, top_k_index, top_k_weights.to(hidden_states.dtype))</span><br><span class="line">        hidden_states = hidden_states.reshape(batch_size, sequence_length, hidden_dim)</span><br><span class="line">        <span class="keyword">return</span> hidden_states</span><br></pre></td></tr></table></figure>
+
 <p>该损失值较为简单，即将专家分配的平均token数和平均门控激活值相乘，在mixtral的实现中，是在有moe层的维度进行负载均衡，上述损失值计算的是所有moe层的。这儿还涉及到padding token，尚不了解，先放一放。</p>
 <p>Mixtral 8*7B的含义为——7B是指32层中每层一个专家的参数量，8*7B是指每层有8个专家，这样看，实际参数并不是56B，因为7B中有很多共享的，比如嵌入、注意力等，故计算后实际参数在47B，推理参数在13B左右。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://sss-hust.github.io/2025/10/07/%E6%89%8B%E6%92%95MoE%E4%BB%A3%E7%A0%81/" data-id="cmi8noldo000yqwy29btv1a1f" data-title="手撕MoE代码" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2025/10/10/transformer%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          transformer优化学习
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">博弈论</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/AI%E5%9F%BA%E7%A1%80/">AI基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MoE/">MoE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vibe-coding/">vibe-coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B4%E8%B6%A3/">兴趣</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2025/11/21/%E6%9D%82%E8%AE%B0/">杂记</a>
-          </li>
-        
-          <li>
-            <a href="/2025/11/20/vibe-coding/">vibe coding</a>
-          </li>
-        
-          <li>
-            <a href="/2025/11/18/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a>
-          </li>
-        
-          <li>
-            <a href="/2025/10/28/expert-offload/">expert_offload</a>
-          </li>
-        
-          <li>
-            <a href="/2025/10/16/MC-Moe%E5%A4%8D%E7%8E%B0/">MC-Moe复现</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2025 杨慕怡<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+</div><div class="article-licensing box"><div class="licensing-title"><p>手撕MoE代码</p><p><a href="https://sss-hust.github.io/2025/10/07/手撕MoE代码/">https://sss-hust.github.io/2025/10/07/手撕MoE代码/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>杨慕怡</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2025-10-07</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2025-11-18</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="notification is-danger">You need to set <code>install_url</code> to use ShareThis. Please set it in <code>_config.yml</code>.</div></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" href="/" target="_blank" rel="noopener" data-type="afdian"><span class="icon is-small"><i class="fas fa-charging-station"></i></span><span>爱发电</span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/" alt="支付宝"></span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="buymeacoffee"><span class="icon is-small"><i class="fas fa-coffee"></i></span><span>送我杯咖啡</span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="patreon"><span class="icon is-small"><i class="fab fa-patreon"></i></span><span>Patreon</span></a><div class="notification is-danger">You forgot to set the <code>business</code> or <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.</div><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2025/10/10/transformer%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">transformer优化学习</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2025/09/24/%E5%8D%9A%E5%BC%88%E8%AE%BA/"><span class="level-item">博弈论</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><div class="notification is-danger">You forgot to set the <code>shortname</code> for Disqus. Please set it in <code>_config.yml</code>.</div></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="Your name"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Your name</p><p class="is-size-6 is-block">Your title</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Your location</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">31</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">12</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/AI/"><span class="level-start"><span class="level-item">AI</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/AI%E5%9F%BA%E7%A1%80/"><span class="level-start"><span class="level-item">AI基础</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/MoE/"><span class="level-start"><span class="level-item">MoE</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/vibe-coding/"><span class="level-start"><span class="level-item">vibe-coding</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%85%B4%E8%B6%A3/"><span class="level-start"><span class="level-item">兴趣</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/"><span class="level-start"><span class="level-item">推理优化</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%9D%82%E8%AE%B0/"><span class="level-start"><span class="level-item">杂记</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%AF%94%E8%B5%9B/"><span class="level-start"><span class="level-item">比赛</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%94%9F%E6%B4%BB/"><span class="level-start"><span class="level-item">生活</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%AE%97%E6%B3%95/"><span class="level-start"><span class="level-item">算法</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B/"><span class="level-start"><span class="level-item">编程</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%9A%8F%E7%AC%94/"><span class="level-start"><span class="level-item">随笔</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-01-27T14:07:50.000Z">2026-01-27</time></p><p class="title"><a href="/2026/01/27/%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">动手学深度学习</a></p><p class="categories"><a href="/categories/AI/">AI</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-01-15T12:19:05.000Z">2026-01-15</time></p><p class="title"><a href="/2026/01/15/%E7%AE%97%E6%B3%95%E9%80%9F%E6%88%90/">算法速成</a></p><p class="categories"><a href="/categories/%E7%AE%97%E6%B3%95/">算法</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-12-27T08:26:29.000Z">2025-12-27</time></p><p class="title"><a href="/2025/12/27/hot100/">hot100</a></p><p class="categories"><a href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-12-11T11:46:50.000Z">2025-12-11</time></p><p class="title"><a href="/2025/12/11/%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6/">工程数学</a></p><p class="categories"><a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-12-03T08:13:44.000Z">2025-12-03</time></p><p class="title"><a href="/2025/12/03/%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/">新服务器配置</a></p><p class="categories"><a href="/categories/%E6%9D%82%E8%AE%B0/">杂记</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2026/01/"><span class="level-start"><span class="level-item">一月 2026</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/12/"><span class="level-start"><span class="level-item">十二月 2025</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/11/"><span class="level-start"><span class="level-item">十一月 2025</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/10/"><span class="level-start"><span class="level-item">十月 2025</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/09/"><span class="level-start"><span class="level-item">九月 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/08/"><span class="level-start"><span class="level-item">八月 2025</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/07/"><span class="level-start"><span class="level-item">七月 2025</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/06/"><span class="level-start"><span class="level-item">六月 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/04/"><span class="level-start"><span class="level-item">四月 2025</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/09/"><span class="level-start"><span class="level-item">九月 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="思君" height="28"></a><p class="is-size-7"><span>&copy; 2026 杨慕怡</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
