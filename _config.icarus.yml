@@ -1,0 +1,421 @@
+# 配置文件版本
+version: 5.1.0
+# Icarus 主题变体，可以是 "default" (默认) 或 "cyberpunk" (赛博朋克)
+variant: default
+# 网站 Logo 的路径或 URL
+logo: /img/logo.svg
+# 页面元数据配置
+head:
+    # 网站图标 (Favicon) 的路径或 URL
+    favicon: /img/favicon.svg
+    # Web 应用程序清单配置
+    # https://developer.mozilla.org/en-US/docs/Web/Manifest
+    manifest:
+        # Web 应用程序名称 (默认为网站标题)
+        name: 抵岸
+        # Web 应用程序的短名称
+        # 当没有足够空间显示全名时使用
+        short_name: 岸
+        # Web 应用程序的启动 URL
+        start_url: happy.everyday.top
+        # 应用程序的默认主题颜色
+        theme_color: 
+        # 应用程序页面加载样式表之前显示的占位符背景颜色
+        background_color: 
+        # 网站的首选显示模式
+        display: standalone
+        # 可作为不同上下文的应用程序图标的图像文件
+        icons:
+            -
+                # 图像文件的路径
+                src: ''
+                # 包含空格分隔的图像尺寸的字符串
+                sizes: ''
+                # 图像媒体类型的提示
+                type: 
+    # Open Graph 元数据
+    # https://hexo.io/docs/helpers.html#open-graph
+    open_graph:
+        # 页面标题 (og:title) (可选)
+        # 大多数情况下留空即可
+        title: 
+        # 页面类型 (og:type) (可选)
+        # 大多数情况下留空即可
+        type: blog
+        # 页面 URL (og:url) (可选)
+        # 大多数情况下留空即可
+        url: 
+        # 页面封面 (og:image) (可选)
+        # 大多数情况下留空即可
+        image: 
+        # 网站名称 (og:site_name) (可选)
+        # 大多数情况下留空即可
+        site_name: 
+        # 页面作者 (article:author) (可选)
+        # 大多数情况下留空即可
+        author: 
+        # 页面描述 (og:description) (可选)
+        # 大多数情况下留空即可
+        description: 
+        # Twitter 卡片类型 (twitter:card)
+        twitter_card: 
+        # Twitter ID (twitter:creator)
+        twitter_id: 
+        # Twitter 站点 (twitter:site)
+        twitter_site: 
+        # Google+ 个人资料链接 (已弃用)
+        google_plus: 
+        # Facebook 管理员 ID
+        fb_admins: 
+        # Facebook App ID
+        fb_app_id: 
+    # 页面的结构化数据
+    # https://developers.google.com/search/docs/guides/intro-structured-data
+    structured_data:
+        # 页面标题 (可选)
+        # 大多数情况下留空即可
+        title: 
+        # 页面描述 (可选)
+        # 大多数情况下留空即可
+        description: 
+        # 页面 URL (可选)
+        # 大多数情况下留空即可
+        url: 
+        # 页面作者 (article:author) (可选)
+        # 大多数情况下留空即可
+        author: 
+        # 页面发布者 (可选)
+        # 大多数情况下留空即可
+        publisher: 
+        # 页面发布者 Logo (可选)
+        # 大多数情况下留空即可
+        publisher_logo: 
+        # 页面图像 (可选)
+        # 大多数情况下留空即可
+        image: 
+    # 数组中的其他 HTML meta 标签
+    meta:
+        # 以 <attribute>=<value> 样式指定的 Meta 标签
+        # 例如: name=theme-color;content=#123456 => <meta name="theme-color" content="#123456">
+        - ''
+    # 网站 RSS atom.xml 的 URL 或路径
+    rss: 
+# 页面顶部导航栏配置
+navbar:
+    # 导航菜单项
+    menu:
+        首页: /
+        归档: /archives
+        分类: /categories
+        标签: /tags
+        关于: /about
+    # 显示在导航栏右侧的链接
+    links:
+        下载旧版:
+            icon: fab fa-github
+            url: https://github.com/ppoffice/hexo-theme-icarus
+# 页面底部页脚配置
+footer:
+    # 版权文本
+    copyright: © 2019
+    # 显示在页脚部分右侧的链接
+    links:
+        Creative Commons:
+            icon: fab fa-creative-commons
+            url: https://creativecommons.org/
+        Attribution 4.0 International:
+            icon: fab fa-creative-commons-by
+            url: https://creativecommons.org/licenses/by/4.0/
+        Download on GitHub:
+            icon: fab fa-github
+            url: https://github.com/ppoffice/hexo-theme-icarus
+# 文章相关配置
+article:
+    # 代码高亮设置
+    highlight:
+        # 代码高亮主题
+        # https://github.com/highlightjs/highlight.js/tree/master/src/styles
+        theme: atom-one-light
+        # 显示复制代码按钮
+        clipboard: true
+        # 代码块的默认折叠状态。可以是 "", "folded", "unfolded"
+        fold: unfolded
+    # 是否显示预计文章阅读时间
+    readtime: true
+    # 是否显示更新时间。对于 "auto"，仅当 page.updated 已设置且与 page.date 不同时显示文章更新时间
+    update_time: true
+    # 文章许可协议块
+    licenses:
+        Creative Commons:
+            icon: fab fa-creative-commons
+            url: https://creativecommons.org/
+        Attribution:
+            icon: fab fa-creative-commons-by
+            url: https://creativecommons.org/licenses/by/4.0/
+        Noncommercial:
+            icon: fab fa-creative-commons-nc
+            url: https://creativecommons.org/licenses/by-nc/4.0/
+# 搜索插件配置
+# https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Search/
+search:
+    type: insight
+    # 是否在搜索结果中包含页面
+    index_pages: true
+# 评论插件配置
+# https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Comment/
+comment:
+    type: disqus
+    # Disqus shortname
+    shortname: ''
+# 打赏插件配置
+# https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Donation/
+donates:
+    # "爱发电" 打赏按钮配置
+    -
+        type: afdian
+        # "爱发电" 个人主页 URL
+        url: ''
+    # 支付宝打赏按钮配置
+    -
+        type: alipay
+        # 支付宝二维码图片 URL
+        qrcode: ''
+    # "Buy me a coffee" 打赏按钮配置
+    -
+        type: buymeacoffee
+        # "Buy me a coffee" 页面 URL
+        url: ''
+    # Patreon 打赏按钮配置
+    -
+        type: patreon
+        # Patreon 页面 URL
+        url: ''
+    # Paypal 打赏按钮配置
+    -
+        type: paypal
+        # Paypal 商家 ID 或邮箱地址
+        business: ''
+        # 货币代码
+        currency_code: USD
+    # 微信打赏按钮配置
+    -
+        type: wechat
+        # 微信二维码图片 URL
+        qrcode: ''
+# 分享插件配置
+# https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Share/
+share:
+    type: sharethis
+    # ShareThis 分享插件脚本的 URL
+    install_url: ''
+# 侧边栏配置
+# 请注意，侧边栏仅在通过 front-matter 启用了至少一个部件时才可见
+sidebar:
+    # 左侧边栏配置
+    left:
+        # 页面滚动时侧边栏是否固定在顶部
+        sticky: false
+    # 右侧边栏配置
+    right:
+        # 页面滚动时侧边栏是否固定在顶部
+        sticky: false
+# 侧边栏部件配置
+# http://ppoffice.github.io/hexo-theme-icarus/categories/Widgets/
+widgets:
+    # 个人资料部件配置
+    -
+        # 部件放置位置，left (左侧边栏) 或 right (右侧边栏)
+        position: left
+        type: profile
+        # 作者姓名
+        author: 杨福
+        # 作者头衔/职业
+        author_title: all in ai,ai is world
+        # 作者所在地
+        location: China
+        # 头像图片的 URL 或路径
+        avatar: /img/avatar.png
+        # 是否显示圆形头像
+        avatar_rounded: true
+        # Gravatar 邮箱地址
+        gravatar: 
+        # 关注按钮的 URL 或路径
+        follow_link: https://github.com/
+        # 显示在个人资料部件底部的链接
+        social_links:
+            Github:
+                icon: fab fa-github
+                url: https://github.com/sss-hust
+            Facebook:
+                icon: fab fa-facebook
+                url: https://facebook.com
+            Twitter:
+                icon: fab fa-twitter
+                url: https://twitter.com
+            Dribbble:
+                icon: fab fa-dribbble
+                url: https://dribbble.com
+            RSS:
+                icon: fas fa-rss
+                url: /
+    # 目录部件配置
+    -
+        # 部件放置位置，left (左侧边栏) 或 right (右侧边栏)
+        position: left
+        type: toc
+        # 是否显示每个标题的索引
+        index: true
+        # 当子标题在视图外时是否折叠
+        collapsed: true
+        # 要显示的标题最大层级 (1-6)
+        depth: 3
+    # 推荐链接部件配置
+    -
+        # 部件放置位置，left (左侧边栏) 或 right (右侧边栏)
+        position: left
+        type: links
+        # 网站名称和 URL
+        links:
+            Hexo: https://hexo.io
+            Bulma: https://bulma.io
+    # 分类部件配置
+    -
+        # 部件放置位置，left (左侧边栏) 或 right (右侧边栏)
+        position: left
+        type: categories
+    # 最新文章部件配置
+    -
+        # 部件放置位置，left (左侧边栏) 或 right (右侧边栏)
+        position: right
+        type: recent_posts
+    # 归档部件配置
+    -
+        # 部件放置位置，left (左侧边栏) 或 right (右侧边栏)
+        position: right
+        type: archives
+    # 标签部件配置
+    -
+        # 部件放置位置，left (左侧边栏) 或 right (右侧边栏)
+        position: right
+        type: tags
+        # 标签排序方式。例如 'name' 按名称升序排序，'-length' 按每个标签的文章数量降序排序
+        order_by: name
+        # 要显示的标签数量。如果不设置将显示所有标签
+        amount: 
+        # 是否显示标签计数，即标签下的文章数量
+        show_count: true
+    # Google FeedBurner 邮件订阅部件配置
+    -
+        # 部件放置位置，left (左侧边栏) 或 right (右侧边栏)
+        position: left
+        type: subscribe_email
+        # 邮箱输入框下的提示文本
+        description: 
+        # Feedburner ID
+        feedburner_id: ''
+    # Google AdSense 广告单元配置
+    -
+        # 部件放置位置，left (左侧边栏) 或 right (右侧边栏)
+        position: left
+        type: adsense
+        # AdSense 客户 ID
+        client_id: ''
+        # AdSense 广告单元 ID
+        slot_id: ''
+    # Follow.it 邮件订阅部件配置
+    -
+        # 部件放置位置，left (左侧边栏) 或 right (右侧边栏)
+        position: left
+        type: followit
+        # 邮箱输入框下的提示文本
+        description: 
+        # 订阅表单操作 URL
+        action_url: ''
+        # Feed 声明验证码
+        verification_code: ''
+# 插件配置
+# https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/
+plugins:
+    # 启用页面启动动画
+    animejs: true
+    # 显示 "返回顶部" 按钮
+    back_to_top: true
+    # 百度统计插件设置
+    # https://tongji.baidu.com
+    baidu_analytics:
+        # 百度统计跟踪 ID
+        tracking_id: 
+    # Bing 站长工具插件设置
+    # https://www.bing.com/toolbox/webmaster/
+    bing_webmaster:
+        # <meta> 标签中的 Bing 站长工具跟踪 ID
+        tracking_id: 
+    # 不蒜子站点/页面访问计数器
+    # https://busuanzi.ibruce.info
+    busuanzi: false
+    # CNZZ 统计
+    # https://www.umeng.com/web
+    cnzz:
+        # CNZZ 跟踪器 ID
+        id: 
+        # CNZZ 网站 ID
+        web_id: 
+    # 提示用户使用 Cookies
+    # https://www.osano.com/cookieconsent/
+    cookie_consent:
+        # 合规类型。可以是 "info", "opt-in", 或 "opt-out"
+        type: info
+        # 弹窗主题。可以是 "block", "edgeless", 或 "classic"
+        theme: edgeless
+        # 无论页面是否滚动，弹窗是否保持静止
+        static: false
+        # 同意弹窗在屏幕上显示的位置
+        position: bottom-left
+        # 您网站 Cookie 政策的 URL
+        policyLink: https://www.cookiesandyou.com/
+    # 启用 lightGallery 和 Justified Gallery 插件
+    gallery: true
+    # Google Analytics 插件设置
+    # https://analytics.google.com
+    google_analytics:
+        # Google Analytics 跟踪 ID
+        tracking_id: 
+    # Hotjar 用户反馈插件
+    # https://www.hotjar.com/
+    hotjar:
+        # Hotjar 站点 ID
+        site_id: 
+    # 启用 KaTeX 数学排版支持
+    # https://katex.org/
+    katex: false
+    # 启用 MathJax 数学排版支持
+    # https://www.mathjax.org/
+    mathjax: false
+    # 启用 Outdated Browser 插件 (过时浏览器提示)
+    # http://outdatedbrowser.com/
+    outdated_browser: false
+    # 启用 PJAX
+    pjax: true
+    # 页面加载时在顶部显示进度条
+    progressbar: true
+    # Statcounter 统计
+    # https://statcounter.com/
+    statcounter:
+        # Statcounter 项目 ID
+        project: 
+        # Statcounter 项目安全代码
+        security: 
+    # Twitter 转化跟踪插件设置
+    # https://business.twitter.com/en/help/campaign-measurement-and-analytics/conversion-tracking-for-websites.html
+    twitter_conversion_tracking:
+        # Twitter 像素 ID
+        pixel_id: 
+# CDN 提供商设置
+# https://ppoffice.github.io/hexo-theme-icarus/Configuration/Theme/speed-up-your-site-with-custom-cdn/
+providers:
+    # JavaScript 和/或 样式表 CDN 提供商的名称或 URL 模板
+    cdn: jsdelivr
+    # Web 字体 CDN 提供商的名称或 URL 模板
+    fontcdn: google
+    # FontAwesome 图标字体 CDN 提供商的名称或 URL
+    iconcdn: fontawesome
